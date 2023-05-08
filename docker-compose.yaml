@@ -9,9 +9,9 @@ services:
     volumes:
       - db:/var/lib/postgresql/data
     environment:
-      - POSTGRES_USER=doggr
-      - POSTGRES_PASSWORD=doggr
-      - POSTGRES_DB=doggr
+      - POSTGRES_USER=sendit
+      - POSTGRES_PASSWORD=sendit
+      - POSTGRES_DB=sendit
 
 volumes:
   db:
