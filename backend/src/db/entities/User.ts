@@ -11,6 +11,7 @@ import {
 import { BaseEntity } from "./BaseEntity.js";
 import { Match } from "./Match.js";
 import { Message } from "./Message.js";
+import {Attempt} from "./Attempt.js";
 
 @Entity({ tableName: "users" })
 export class User extends BaseEntity {
@@ -22,7 +23,7 @@ export class User extends BaseEntity {
 	name: string;
 
 	@Property()
-	petType!: string;
+	skill_level: number;
 
 	@Property()
 	password: string = "password";
@@ -43,6 +44,10 @@ export class User extends BaseEntity {
 		cascade: [Cascade.PERSIST, Cascade.REMOVE],
 	})
 	received_messages!: Collection<Message>;
+
+	//Attempts
+	@OneToMany(() => Attempt, (attempt) => attempt.athlete, { cascade: [Cascade.PERSIST, Cascade.REMOVE] })
+	attempts!: Collection<Attempt>;
 }
 // export const schema = new EntitySchema({
 //     class: User,

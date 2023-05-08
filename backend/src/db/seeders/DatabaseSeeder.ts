@@ -5,6 +5,6 @@ import { UserSeeder } from "./UserSeeder.js";
 
 export class DatabaseSeeder extends Seeder {
 	async run(em: EntityManager): Promise<void> {
-		return this.call(em, [UserSeeder, MessageSeeder]);
+		return this.call(em, []);
 	}
 }

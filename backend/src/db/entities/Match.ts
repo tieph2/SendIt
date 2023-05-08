@@ -8,16 +8,18 @@ import {
 	Property,
 	Unique,
 } from "@mikro-orm/core";
-import { BaseEntity } from "./BaseEntity.js";
+
+import type {Rel} from "@mikro-orm/core";
+
 import { User } from "./User.js";
 
 @Entity()
 export class Match {
 	@ManyToOne({ primary: true })
-	owner!: User;
+	owner!: Rel<User>;
 
 	@ManyToOne({ primary: true })
-	matchee!: User;
+	matchee!: Rel<User>;
 
 	@Property()
 	created_at = new Date();
