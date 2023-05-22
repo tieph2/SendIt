@@ -8,9 +8,6 @@ import {
     Unique,
     Cascade,
 } from "@mikro-orm/core";
-import { BaseEntity } from "./BaseEntity.js";
-import { Match } from "./Match.js";
-import { Message } from "./Message.js";
 import {User} from "./User.js";
 
 @Entity({ tableName: "scores" })

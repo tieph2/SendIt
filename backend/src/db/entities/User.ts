@@ -1,20 +1,19 @@
-import {
-	Collection,
-	Entity,
-	EntitySchema,
-	OneToMany,
-	PrimaryKey,
-	Property,
-	Unique,
-	Cascade,
-} from "@mikro-orm/core";
-import { BaseEntity } from "./BaseEntity.js";
-import { Match } from "./Match.js";
-import { Message } from "./Message.js";
+import { Entity, Property, Unique, OneToMany, Collection, Cascade } from "@mikro-orm/core";
+import { SoftDeletable } from "mikro-orm-soft-delete";
+import { SenditBaseEntity } from "./SenditBaseEntity.js";
 import {Attempt} from "./Attempt.js";
 
+import { Enum } from "@mikro-orm/core";
+export enum UserRole {
+	ADMIN = 'Admin',
+	USER = 'User',
+	JUDGE = 'Judge'
+}
+
+
+@SoftDeletable(() => User, "deleted_at", () => new Date())
 @Entity({ tableName: "users" })
-export class User extends BaseEntity {
+export class User extends SenditBaseEntity {
 	@Property()
 	@Unique()
 	email!: string;
@@ -28,31 +27,10 @@ export class User extends BaseEntity {
 	@Property()
 	password: string = "password";
 
-	// Note that these DO NOT EXIST in the database itself!
-	@OneToMany(() => Match, (match) => match.owner, { cascade: [Cascade.PERSIST, Cascade.REMOVE] })
-	matches!: Collection<Match>;
-
-	@OneToMany(() => Match, (match) => match.matchee, { cascade: [Cascade.PERSIST, Cascade.REMOVE] })
-	matched_by!: Collection<Match>;
-
-	@OneToMany(() => Message, (message) => message.sender, {
-		cascade: [Cascade.PERSIST, Cascade.REMOVE],
-	})
-	sent_messages!: Collection<Message>;
-
-	@OneToMany(() => Message, (message) => message.receiver, {
-		cascade: [Cascade.PERSIST, Cascade.REMOVE],
-	})
-	received_messages!: Collection<Message>;
+	@Enum(() => UserRole)
+	role!: UserRole; // string enum
 
 	//Attempts
 	@OneToMany(() => Attempt, (attempt) => attempt.athlete, { cascade: [Cascade.PERSIST, Cascade.REMOVE] })
 	attempts!: Collection<Attempt>;
 }
-// export const schema = new EntitySchema({
-//     class: User,
-//     extends: "BaseEntity",
-//     properties: {
-//         email: { type: "string" },
-//     },
-// });

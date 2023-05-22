@@ -1,11 +1,29 @@
-export type ICreateUserBody = {
-	name: string;
-	email: string;
-	petType: string;
-};
+import { Boulder } from "./db/entities/Boulder";
 
-export type IcreateMessageBody = {
-	sender: string;
-	receiver: string;
-	message: string;
-};
+export type ICreateUsersBody = {
+	name: string,
+	email: string,
+	password: string,
+	skill_level: number
+}
+
+export type IUpdateUsersBody = {
+	name: string,
+	id: number,
+	skill_level: number
+}
+
+export type ICreateBoulderBody = {
+	zone: 1,
+	color: 'red',
+	score: 1000,
+	grade: 6,
+	note: 'This is a note for boulder 1'
+}
+
+export type IUpdateBoulderBody = {
+	id: number,
+	score: 1000,
+	grade: 6,
+	note: 'This is a note for boulder 1'
+}

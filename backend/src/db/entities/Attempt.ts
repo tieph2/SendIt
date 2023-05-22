@@ -8,6 +8,8 @@ import {
     Unique,
     Cascade, ManyToOne,
 } from "@mikro-orm/core";
+import type {Ref, Rel} from "@mikro-orm/core";
+
 import {User} from "./User.js";
 import {Boulder} from "./Boulder.js";
 
@@ -15,10 +17,10 @@ import {Boulder} from "./Boulder.js";
 @Entity({ tableName: "attempts" })
 export class Attempt {
     @ManyToOne({ primary: true })
-    athlete!: User;
+    athlete!: Ref<User>;
 
     @ManyToOne({ primary: true })
-    boulder!: Boulder;
+    boulder!: Rel<Boulder>;
 
     @Property()
     count: number = 0;

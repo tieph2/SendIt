@@ -8,12 +8,13 @@ import {
     Unique,
     Cascade,
 } from "@mikro-orm/core";
-import { BaseEntity } from "./BaseEntity.js";
-import { Match } from "./Match.js";
-import { Message } from "./Message.js";
+import { SenditBaseEntity } from "./SenditBaseEntity.js";
 
 @Entity({ tableName: "boulders" })
-export class Boulder extends BaseEntity {
+export class Boulder extends SenditBaseEntity {
+    @Property()
+    zone!: number;
+
     @Property()
     color!: string;
 

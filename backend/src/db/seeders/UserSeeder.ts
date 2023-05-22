@@ -1,31 +1,38 @@
 import type { Dictionary, EntityManager } from "@mikro-orm/core";
 import { Seeder } from "@mikro-orm/seeder";
-import { User } from "../entities/User.js";
+import { User, UserRole } from "../entities/User.js";
 
 export class UserSeeder extends Seeder {
 	async run(em: EntityManager, context: Dictionary): Promise<void> {
 		context.user1 = em.create(User, {
-			name: "Spot",
+			name: "Jase",
 			email: "email@email.com",
-			petType: "Dog",
+			skill_level: 3,
+			role: UserRole.JUDGE,
 			password: "admin",
 		});
 		context.user2 = em.create(User, {
-			name: "Dogbert",
+			name: "Chase",
 			email: "email2@email.com",
-			petType: "Dog",
+			skill_level: 5,
+			role: UserRole.USER,
+
 		});
 
 		context.user3 = em.create(User, {
-			name: "Doglord",
+			name: "John",
 			email: "email3@email.com",
-			petType: "Dog",
+			skill_level: 16,
+			role: UserRole.USER,
+
 		});
 
 		context.user4 = em.create(User, {
-			name: "NotaDog",
+			name: "Elaine",
 			email: "email4@email.com",
-			petType: "Cat",
+			skill_level: 10,
+			role: UserRole.USER,
+
 		});
 	}
 }
