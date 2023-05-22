@@ -17,10 +17,10 @@ import {Boulder} from "./Boulder.js";
 @Entity({ tableName: "attempts" })
 export class Attempt {
     @ManyToOne({ primary: true })
-    athlete!: Ref<User>;
+    climber!: Ref<User>;
 
     @ManyToOne({ primary: true })
-    boulder!: Rel<Boulder>;
+    boulder!: Ref<Boulder>;
 
     @Property()
     count: number = 0;

@@ -31,6 +31,9 @@ export class User extends SenditBaseEntity {
 	role!: UserRole; // string enum
 
 	//Attempts
-	@OneToMany(() => Attempt, (attempt) => attempt.athlete, { cascade: [Cascade.PERSIST, Cascade.REMOVE] })
+	@OneToMany(
+		() => Attempt,
+		(attempt) => attempt.climber,
+		{ cascade: [Cascade.PERSIST, Cascade.REMOVE] })
 	attempts!: Collection<Attempt>;
 }
