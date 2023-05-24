@@ -10,7 +10,7 @@ export class SenditBaseEntity extends BaseEntity<SenditBaseEntity, "id"> {
 	@Property()
 	created_at = new Date();
 
-	@Property({onUpdate: () => new Date()})
+	@Property({ onUpdate: () => new Date() })
 	updated_at = new Date();
 
 	@Property({ nullable: true })

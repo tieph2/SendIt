@@ -6,10 +6,6 @@ import { AttemptSeeder } from "./AttempSeeder.js";
 
 export class DatabaseSeeder extends Seeder {
 	async run(em: EntityManager): Promise<void> {
-		return this.call(em, [
-			UserSeeder,
-			BoulderSeeder,
-			AttemptSeeder
-		]);
+		return this.call(em, [UserSeeder, BoulderSeeder, AttemptSeeder]);
 	}
 }

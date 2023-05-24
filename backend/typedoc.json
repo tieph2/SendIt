@@ -1,6 +1,6 @@
 {
-  "entryPoints": ["src/"],
-  "out": "doc",
-  "exclude":["**/{migratios,test}*.ts", "**/mikro-orm.config.ts", "**/build"],
-  "entryPointStrategy": "expand"
+	"entryPoints": ["src/"],
+	"out": "doc",
+	"exclude": ["**/{migratios,test}*.ts", "**/mikro-orm.config.ts", "**/build"],
+	"entryPointStrategy": "expand"
 }

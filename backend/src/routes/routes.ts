@@ -4,6 +4,7 @@ dotenv.config();
 import { FastifyInstance } from "fastify";
 import { UserRoutesInit } from "./user_routes.js";
 import { BoulderRoutesInit } from "./boulder_routes.js";
+import { AttemptRouteInit } from "./attempt_routes.js";
 
 /** This function creates all backend routes for the site
  *
@@ -17,7 +18,8 @@ async function SenditRoutes(app: FastifyInstance, _options = {}) {
 	}
 
 	UserRoutesInit(app);
-	BoulderRoutesInit(app)
+	BoulderRoutesInit(app);
+	AttemptRouteInit(app);
 }
 
 export default SenditRoutes;

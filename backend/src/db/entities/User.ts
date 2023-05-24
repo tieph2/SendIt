@@ -1,15 +1,15 @@
 import { Entity, Property, Unique, OneToMany, Collection, Cascade } from "@mikro-orm/core";
 import { SoftDeletable } from "mikro-orm-soft-delete";
 import { SenditBaseEntity } from "./SenditBaseEntity.js";
-import {Attempt} from "./Attempt.js";
+import { Attempt } from "./Attempt.js";
 
 import { Enum } from "@mikro-orm/core";
 export enum UserRole {
-	ADMIN = 'Admin',
-	USER = 'User',
-	JUDGE = 'Judge'
+	ADMIN = "Admin",
+	USER = "User",
+	JUDGE = "Judge",
+	CLIMBER = "Climber",
 }
-
 
 @SoftDeletable(() => User, "deleted_at", () => new Date())
 @Entity({ tableName: "users" })
@@ -31,9 +31,8 @@ export class User extends SenditBaseEntity {
 	role!: UserRole; // string enum
 
 	//Attempts
-	@OneToMany(
-		() => Attempt,
-		(attempt) => attempt.climber,
-		{ cascade: [Cascade.PERSIST, Cascade.REMOVE] })
+	@OneToMany(() => Attempt, (attempt) => attempt.climber, {
+		cascade: [Cascade.PERSIST, Cascade.REMOVE],
+	})
 	attempts!: Collection<Attempt>;
 }

@@ -2,6 +2,9 @@ import type { Dictionary, EntityManager } from "@mikro-orm/core";
 import { Seeder } from "@mikro-orm/seeder";
 import { User, UserRole } from "../entities/User.js";
 
+/**
+ * This class generates database entires for users
+ */
 export class UserSeeder extends Seeder {
 	async run(em: EntityManager, context: Dictionary): Promise<void> {
 		context.user1 = em.create(User, {
@@ -16,7 +19,6 @@ export class UserSeeder extends Seeder {
 			email: "email2@email.com",
 			skill_level: 5,
 			role: UserRole.USER,
-
 		});
 
 		context.user3 = em.create(User, {
@@ -24,7 +26,6 @@ export class UserSeeder extends Seeder {
 			email: "email3@email.com",
 			skill_level: 16,
 			role: UserRole.USER,
-
 		});
 
 		context.user4 = em.create(User, {
@@ -32,7 +33,6 @@ export class UserSeeder extends Seeder {
 			email: "email4@email.com",
 			skill_level: 10,
 			role: UserRole.USER,
-
 		});
 	}
 }

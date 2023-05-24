@@ -1,0 +1,355 @@
+{
+	"namespaces": ["public"],
+	"name": "public",
+	"tables": [
+		{
+			"columns": {
+				"id": {
+					"name": "id",
+					"type": "serial",
+					"unsigned": true,
+					"autoincrement": true,
+					"primary": true,
+					"nullable": false,
+					"mappedType": "integer"
+				},
+				"created_at": {
+					"name": "created_at",
+					"type": "timestamptz(0)",
+					"unsigned": false,
+					"autoincrement": false,
+					"primary": false,
+					"nullable": false,
+					"length": 6,
+					"mappedType": "datetime"
+				},
+				"updated_at": {
+					"name": "updated_at",
+					"type": "timestamptz(0)",
+					"unsigned": false,
+					"autoincrement": false,
+					"primary": false,
+					"nullable": false,
+					"length": 6,
+					"mappedType": "datetime"
+				},
+				"deleted_at": {
+					"name": "deleted_at",
+					"type": "timestamptz(0)",
+					"unsigned": false,
+					"autoincrement": false,
+					"primary": false,
+					"nullable": true,
+					"length": 6,
+					"mappedType": "datetime"
+				},
+				"zone": {
+					"name": "zone",
+					"type": "int",
+					"unsigned": false,
+					"autoincrement": false,
+					"primary": false,
+					"nullable": false,
+					"mappedType": "integer"
+				},
+				"color": {
+					"name": "color",
+					"type": "varchar(255)",
+					"unsigned": false,
+					"autoincrement": false,
+					"primary": false,
+					"nullable": false,
+					"mappedType": "string"
+				},
+				"score": {
+					"name": "score",
+					"type": "int",
+					"unsigned": false,
+					"autoincrement": false,
+					"primary": false,
+					"nullable": false,
+					"mappedType": "integer"
+				},
+				"grade": {
+					"name": "grade",
+					"type": "int",
+					"unsigned": false,
+					"autoincrement": false,
+					"primary": false,
+					"nullable": false,
+					"mappedType": "integer"
+				},
+				"note": {
+					"name": "note",
+					"type": "varchar(255)",
+					"unsigned": false,
+					"autoincrement": false,
+					"primary": false,
+					"nullable": false,
+					"mappedType": "string"
+				}
+			},
+			"name": "boulders",
+			"schema": "public",
+			"indexes": [
+				{
+					"keyName": "boulders_pkey",
+					"columnNames": ["id"],
+					"composite": false,
+					"primary": true,
+					"unique": true
+				}
+			],
+			"checks": [],
+			"foreignKeys": {}
+		},
+		{
+			"columns": {
+				"athlete": {
+					"name": "athlete",
+					"type": "varchar(255)",
+					"unsigned": false,
+					"autoincrement": false,
+					"primary": false,
+					"nullable": false,
+					"mappedType": "string"
+				},
+				"score": {
+					"name": "score",
+					"type": "int",
+					"unsigned": false,
+					"autoincrement": false,
+					"primary": false,
+					"nullable": false,
+					"default": "0",
+					"mappedType": "integer"
+				}
+			},
+			"name": "scores",
+			"schema": "public",
+			"indexes": [
+				{
+					"keyName": "scores_pkey",
+					"columnNames": ["athlete"],
+					"composite": false,
+					"primary": true,
+					"unique": true
+				}
+			],
+			"checks": [],
+			"foreignKeys": {}
+		},
+		{
+			"columns": {
+				"id": {
+					"name": "id",
+					"type": "serial",
+					"unsigned": true,
+					"autoincrement": true,
+					"primary": true,
+					"nullable": false,
+					"mappedType": "integer"
+				},
+				"created_at": {
+					"name": "created_at",
+					"type": "timestamptz(0)",
+					"unsigned": false,
+					"autoincrement": false,
+					"primary": false,
+					"nullable": false,
+					"length": 6,
+					"mappedType": "datetime"
+				},
+				"updated_at": {
+					"name": "updated_at",
+					"type": "timestamptz(0)",
+					"unsigned": false,
+					"autoincrement": false,
+					"primary": false,
+					"nullable": false,
+					"length": 6,
+					"mappedType": "datetime"
+				},
+				"deleted_at": {
+					"name": "deleted_at",
+					"type": "timestamptz(0)",
+					"unsigned": false,
+					"autoincrement": false,
+					"primary": false,
+					"nullable": true,
+					"length": 6,
+					"mappedType": "datetime"
+				},
+				"email": {
+					"name": "email",
+					"type": "varchar(255)",
+					"unsigned": false,
+					"autoincrement": false,
+					"primary": false,
+					"nullable": false,
+					"mappedType": "string"
+				},
+				"name": {
+					"name": "name",
+					"type": "varchar(255)",
+					"unsigned": false,
+					"autoincrement": false,
+					"primary": false,
+					"nullable": false,
+					"mappedType": "string"
+				},
+				"skill_level": {
+					"name": "skill_level",
+					"type": "int",
+					"unsigned": false,
+					"autoincrement": false,
+					"primary": false,
+					"nullable": false,
+					"mappedType": "integer"
+				},
+				"password": {
+					"name": "password",
+					"type": "varchar(255)",
+					"unsigned": false,
+					"autoincrement": false,
+					"primary": false,
+					"nullable": false,
+					"default": "'password'",
+					"mappedType": "string"
+				},
+				"role": {
+					"name": "role",
+					"type": "text",
+					"unsigned": false,
+					"autoincrement": false,
+					"primary": false,
+					"nullable": false,
+					"enumItems": ["Admin", "User", "Judge"],
+					"mappedType": "enum"
+				}
+			},
+			"name": "users",
+			"schema": "public",
+			"indexes": [
+				{
+					"columnNames": ["email"],
+					"composite": false,
+					"keyName": "users_email_unique",
+					"primary": false,
+					"unique": true
+				},
+				{
+					"keyName": "users_pkey",
+					"columnNames": ["id"],
+					"composite": false,
+					"primary": true,
+					"unique": true
+				}
+			],
+			"checks": [],
+			"foreignKeys": {}
+		},
+		{
+			"columns": {
+				"climber_id": {
+					"name": "climber_id",
+					"type": "int",
+					"unsigned": false,
+					"autoincrement": false,
+					"primary": false,
+					"nullable": false,
+					"mappedType": "integer"
+				},
+				"boulder_id": {
+					"name": "boulder_id",
+					"type": "int",
+					"unsigned": false,
+					"autoincrement": false,
+					"primary": false,
+					"nullable": false,
+					"mappedType": "integer"
+				},
+				"count": {
+					"name": "count",
+					"type": "int",
+					"unsigned": false,
+					"autoincrement": false,
+					"primary": false,
+					"nullable": false,
+					"default": "0",
+					"mappedType": "integer"
+				},
+				"successful": {
+					"name": "successful",
+					"type": "boolean",
+					"unsigned": false,
+					"autoincrement": false,
+					"primary": false,
+					"nullable": false,
+					"default": "false",
+					"mappedType": "boolean"
+				},
+				"note": {
+					"name": "note",
+					"type": "varchar(255)",
+					"unsigned": false,
+					"autoincrement": false,
+					"primary": false,
+					"nullable": false,
+					"default": "''",
+					"mappedType": "string"
+				},
+				"created_at": {
+					"name": "created_at",
+					"type": "timestamptz(0)",
+					"unsigned": false,
+					"autoincrement": false,
+					"primary": false,
+					"nullable": false,
+					"length": 6,
+					"mappedType": "datetime"
+				},
+				"updated_at": {
+					"name": "updated_at",
+					"type": "timestamptz(0)",
+					"unsigned": false,
+					"autoincrement": false,
+					"primary": false,
+					"nullable": false,
+					"length": 6,
+					"mappedType": "datetime"
+				}
+			},
+			"name": "attempts",
+			"schema": "public",
+			"indexes": [
+				{
+					"keyName": "attempts_pkey",
+					"columnNames": ["climber_id", "boulder_id"],
+					"composite": true,
+					"primary": true,
+					"unique": true
+				}
+			],
+			"checks": [],
+			"foreignKeys": {
+				"attempts_climber_id_foreign": {
+					"constraintName": "attempts_climber_id_foreign",
+					"columnNames": ["climber_id"],
+					"localTableName": "public.attempts",
+					"referencedColumnNames": ["id"],
+					"referencedTableName": "public.users",
+					"updateRule": "cascade"
+				},
+				"attempts_boulder_id_foreign": {
+					"constraintName": "attempts_boulder_id_foreign",
+					"columnNames": ["boulder_id"],
+					"localTableName": "public.attempts",
+					"referencedColumnNames": ["id"],
+					"referencedTableName": "public.boulders",
+					"updateRule": "cascade"
+				}
+			}
+		}
+	]
+}
