@@ -1,0 +1,2 @@
+export const API_HOST = "localhost";
+export const PORT = 8080;

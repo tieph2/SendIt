@@ -36,11 +36,11 @@ export function BoulderRoutesInit(app: FastifyInstance) {
 		try {
 			// Create the new boulder problem
 			const newBoulder = await req.em.create(Boulder, {
-				zone: 1,
-				color: "red",
-				score: 1000,
-				grade: 6,
-				note: "This is a note for boulder 1",
+				zone: zone,
+				color: color,
+				score: score,
+				grade: grade,
+				note: note,
 			});
 			// Send our changes to the database
 			await req.em.flush();
@@ -66,10 +66,12 @@ export function BoulderRoutesInit(app: FastifyInstance) {
 
 	//Update a boulder problem
 	app.put<{ Body: IUpdateBoulderBody }>("/boulders", async (req, reply) => {
-		const { id, score, grade, note } = req.body;
+		const {id, zone, color, score, grade, note } = req.body;
 
 		try {
 			const boulder = await req.em.findOneOrFail(Boulder, id, { strict: true });
+			boulder.zone = zone
+			boulder.color = color;
 			boulder.score = score;
 			boulder.grade = grade;
 			boulder.note = note;

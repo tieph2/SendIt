@@ -16,10 +16,22 @@ import { Boulder } from "./Boulder.js";
 
 @Entity({ tableName: "attempts" })
 export class Attempt {
-	@ManyToOne({ primary: true })
+	@ManyToOne(
+		() => User,
+		{
+			primary: true,
+			cascade: [Cascade.PERSIST, Cascade.REMOVE]
+		}
+	)
 	climber!: Ref<User>;
 
-	@ManyToOne({ primary: true })
+	@ManyToOne(
+		() => User,
+		{
+			primary: true,
+			cascade: [Cascade.PERSIST, Cascade.REMOVE]
+		}
+	)
 	boulder!: Ref<Boulder>;
 
 	@Property()

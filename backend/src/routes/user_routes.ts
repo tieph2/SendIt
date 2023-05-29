@@ -1,7 +1,9 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
+import multipart from "@fastify/multipart";
 import { SOFT_DELETABLE_FILTER } from "mikro-orm-soft-delete";
 import { User, UserRole } from "../db/entities/User.js";
 import { ICreateUsersBody, IUpdateUsersBody } from "../types.js";
+import bcrypt from "bcrypt";
 
 export function UserRoutesInit(app: FastifyInstance) {
 	// Route that returns all users, soft deleted and not
@@ -111,4 +113,31 @@ export function UserRoutesInit(app: FastifyInstance) {
 			}
 		}
 	);
+	app.post<{
+		Body: {
+			email: string,
+			password: string,
+		}
+	}>("/login", async (req, reply) => {
+		const { email, password } = req.body;
+
+		try {
+			const theUser = await req.em.findOneOrFail(User, {email}, { strict: true });
+
+			const hashCompare = await bcrypt.compare(password, theUser.password);
+			if (hashCompare) {
+				const userId = theUser.id;
+				const token = app.jwt.sign({ userId });
+
+				reply.send({ token });
+			} else {
+				app.log.info(`Password validation failed -- ${password} vs ${theUser.password}`);
+				reply.status(401)
+					.send("Incorrect Password");
+			}
+		} catch (err) {
+			reply.status(500)
+				.send(err);
+		}
+	});
 }

@@ -1,18 +1,61 @@
 version: '3'
-services:  
+services:
   postgres:
     container_name: postgres
     image: postgres:15-alpine
     restart: always
     ports:
-      - "5432:5432" 
+      - "5432:5432"
     volumes:
       - db:/var/lib/postgresql/data
     environment:
       - POSTGRES_USER=sendit
       - POSTGRES_PASSWORD=sendit
       - POSTGRES_DB=sendit
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U sendit"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  minio:
+    container_name: minio
+    image: docker.io/bitnami/minio:latest
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      - MINIO_DEFAULT_BUCKETS=sendit:public
+      - MINIO_ROOT_USER=minioUser
+      - MINIO_ROOT_PASSWORD=minioPass
+      - MINIO_SERVER_ACCESS_KEY=minioUser
+      - MINIO_SERVER_SECRET_KEY=minioPass
+    volumes:
+      - minio_data:/data
+
+
+  backend:
+    container_name: backend
+    build: ./backend/
+    restart: always
+    ports:
+      - "8080:8080"
+    environment:
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_NAME=sendit
+      - DB_USER=sendit
+      - DB_PASS=sendit
+      - PORT=8080
+      - HOST=0.0.0.0
+      - PASSWORD=password
+      - NODE_ENV=development
+    depends_on:
+      postgres:
+        condition: service_healthy
 
 volumes:
+  minio_data:
+    driver: local
   db:
     driver: local

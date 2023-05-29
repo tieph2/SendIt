@@ -14,19 +14,22 @@ export type IUpdateUsersBody = {
 };
 
 export type ICreateBoulderBody = {
-	zone: 1;
-	color: "red";
-	score: 1000;
-	grade: 6;
-	note: "This is a note for boulder 1";
+	zone: number,
+	color: string,
+	score: number,
+	grade: number,
+	note: string,
 };
 
 export type IUpdateBoulderBody = {
-	id: number;
-	score: 1000;
-	grade: 6;
-	note: "This is a note for boulder 1";
+	id: number,
+	zone: number,
+	color: string,
+	score: number,
+	grade: number,
+	note: string,
 };
+
 
 export type ICreateAttemptBody = {
 	climber_id: number;
