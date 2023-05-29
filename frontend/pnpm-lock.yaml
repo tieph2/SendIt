@@ -134,7 +134,7 @@ packages:
       mime-types: 2.1.35
       performance-now: 2.1.0
       qs: 6.10.4
-      safe-buffer: 5.2.1
+      safe-buffer: 5.2.1zz
       tough-cookie: 2.5.0
       tunnel-agent: 0.6.0
       uuid: 8.3.2
