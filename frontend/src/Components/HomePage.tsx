@@ -11,7 +11,7 @@ export const Home = () => {
 };
 
 export function Title() {
-	return <h1>Sendit</h1>;
+	return <h1>Send it!</h1>;
 }
 
 export function Subtitle() {
@@ -24,19 +24,15 @@ export function Intro() {
 
 export function IntroCard(){
 	return (
-			<div className="w-full sm:w-1/2 lg:w-1/2 bg-gray-200  rounded-3xl m-md border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400  p-6 flex flex-col justify-between leading-normal">
-				<div className="mb-8">
-					<Title/>
-					<Intro/>
-				</div>
-				<div className="flex items-center">
-					<img className="w-10 h-10 rounded-full mr-4 intro-image" src={landing} alt="Tien climbing a the wall" />
-					<div className="text-sm">
-						<p className="text-gray-900 leading-none">Tien Pham</p>
-						<p className="text-gray-600">{new Date().toLocaleDateString('en-us')}</p>
-					</div>
+		<div className="hero min-h-screen bg-base-200">
+			<div className="hero-content text-center">
+				<div className="max-w-md">
+					<h1 className="text-5xl font-bold">Hello there</h1>
+					<p className="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
+					<button className="btn btn-primary">Get Started</button>
 				</div>
 			</div>
+		</div>
 	);
 }
 

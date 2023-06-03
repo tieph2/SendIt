@@ -2,13 +2,21 @@ import React from 'react';
 import { NavBar} from "@/Components/Navigation.tsx";
 import Countdown from "@/Components/CountDown.tsx";
 
+import SenditLogo from '../assets/images/SenditLogo.svg';
+import { Link } from "react-router-dom";
+
+
 const Header = () => {
   return (
-    <header className="flex flex-col items-center bg-gray-800 text-white py-4">
-      <div className="mb-4">
-        <img src="logo.png" alt="Logo" className="h-10" />
-      </div>
+    <header className="flex flex-col items-center py-4">
+      <Link to="/">
+        <div className="my-2">
+          <img src={SenditLogo} alt="Sendit Logo" className="h-10" />
+        </div>
+      </Link>
+
       <NavBar/>
+
       <Countdown/>
     </header>
   );

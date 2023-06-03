@@ -22,8 +22,8 @@ export function SenditRouter() {
 			<main className="main">
 				<Routes>
 					<Route path="/" element={<Home />} />
-					<Route path="/boulders/create" element={<ProtectedRoute><CreateBoulder /></ProtectedRoute>} />
 					<Route path="/profile/create" element={<CreateProfile/>}/>
+					<Route path="/boulders/create" element={<CreateBoulder/>}/>
 					<Route path="/login" element={<LoginButton />} />
 					<Route path="/logout" element={<LogoutButton />} />
 					<Route path="/boulders" element={<BoulderPage />} />

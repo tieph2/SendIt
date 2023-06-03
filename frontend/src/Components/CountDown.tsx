@@ -32,7 +32,7 @@ const Countdown = () => {
   }, []);
 
   return (
-    <div>
+    <div className={"countDownTimer"}>
       {countdown.days === 0 && countdown.hours === 0 && countdown.minutes === 0 ? (
         <p>Event is live!!</p>
       ) : (
