@@ -1,4 +1,4 @@
-import { ProfileType } from "@/DoggrTypes.ts";
+import { ProfileType, BoulderType } from "@/SenditTypes.ts";
 import axios from "axios";
 
 const serverIP = import.meta.env.API_HOST;
@@ -18,4 +18,10 @@ export async function getNextProfileFromServer() {
 	const profile =
 		await httpClient.get<ProfileType>("/profile");
 	return profile.data;
+}
+
+export async function getBouldersFromServer() {
+	const boulders =
+		await httpClient.get("/boulders");
+	return boulders.data;
 }

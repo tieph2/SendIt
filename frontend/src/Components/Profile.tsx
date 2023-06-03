@@ -1,6 +1,6 @@
-import { ProfileType } from "@/DoggrTypes.ts";
+import { ProfileType } from "@/SenditTypes.ts";
 import { useEffect } from "react";
-import "@css/DoggrStyles.css";
+import "@css/main.css";
 
 export type ProfileProps = ProfileType & {
 	onLikeButtonClick: () => void;

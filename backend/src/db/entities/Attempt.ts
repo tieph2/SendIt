@@ -19,17 +19,15 @@ export class Attempt {
 	@ManyToOne(
 		() => User,
 		{
-			primary: true,
-			cascade: [Cascade.PERSIST, Cascade.REMOVE]
+			primary: true
 		}
 	)
 	climber!: Ref<User>;
 
 	@ManyToOne(
-		() => User,
+		() => Boulder,
 		{
-			primary: true,
-			cascade: [Cascade.PERSIST, Cascade.REMOVE]
+			primary: true
 		}
 	)
 	boulder!: Ref<Boulder>;

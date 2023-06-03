@@ -13,12 +13,14 @@ export class UserSeeder extends Seeder {
 			skill_level: 3,
 			role: UserRole.JUDGE,
 			password: "admin",
+			imgUri: "dog.jpg"
 		});
 		context.user2 = em.create(User, {
 			name: "Chase",
 			email: "email2@email.com",
 			skill_level: 5,
 			role: UserRole.USER,
+			imgUri: "dog.jpg"
 		});
 
 		context.user3 = em.create(User, {
@@ -26,6 +28,7 @@ export class UserSeeder extends Seeder {
 			email: "email3@email.com",
 			skill_level: 16,
 			role: UserRole.USER,
+			imgUri: "dog.jpg"
 		});
 
 		context.user4 = em.create(User, {
@@ -33,6 +36,7 @@ export class UserSeeder extends Seeder {
 			email: "email4@email.com",
 			skill_level: 10,
 			role: UserRole.USER,
+			imgUri: "dog.jpg"
 		});
 	}
 }

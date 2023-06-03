@@ -1,21 +1,16 @@
-import { useAuth } from "@/Services/Auth.tsx";
 import { useCallback, useState } from "react";
-
-
-
-
-
-
+import { useAuth0 } from "@auth0/auth0-react";
 
 
 export function Login() {
-	const context = useAuth();
+	const context = useAuth0();
+	const { loginWithRedirect } = useAuth0();
 
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [submitFailed, setSubmitFailed] = useState(false);
 
-	const onSubmitLogin = useCallback(async () => {
+	/*const onSubmitLogin = useCallback(async () => {
 		if (context) {
 			const loginSuccess = await context.handleLogin(email, password);
 			if (!loginSuccess) {
@@ -24,7 +19,7 @@ export function Login() {
 		} else {
 			console.error("We have no auth context WARNING WARNING");
 		}
-	}, [email, password, context, setSubmitFailed]);
+	}, [email, password, context, setSubmitFailed]);*/
 
 	return (
 		<div>
@@ -58,7 +53,7 @@ export function Login() {
 			</div>
 
 			<div>
-				<button onClick={onSubmitLogin}>Submit</button>
+				 <button onClick={() => loginWithRedirect()}>Log In</button>;
 			</div>
 		</div>
 	);

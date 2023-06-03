@@ -11,3 +11,12 @@ export type ProfileType = {
 	petType: string;
 	id: number;
 };
+
+export type BoulderType = {
+	imgUri: string;
+	zone: number,
+	color: string,
+	score: number,
+	grade: number,
+	note: string
+}

@@ -1,6 +1,6 @@
 
 import { Profile } from "@/Components/Profile.tsx";
-import { ProfileType } from "@/DoggrTypes.ts";
+import { ProfileType } from "@/SenditTypes.ts";
 import { useAuth } from "@/Services/Auth.tsx";
 import { getNextProfileFromServer } from "@/Services/HttpClient.tsx";
 import { MatchService } from "@/Services/MatchService.tsx";

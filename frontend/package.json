@@ -15,6 +15,8 @@
     "docs:generate": "rimraf ./doc/ && typedoc --options typedoc.json"
   },
   "dependencies": {
+    "@auth0/auth0-react": "^2.1.0",
+    "auth0": "^3.4.0",
     "axios": "^1.4.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

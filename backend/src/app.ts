@@ -7,7 +7,7 @@ import cors from '@fastify/cors'
 import { FastifySearchHttpMethodPlugin } from "./plugins/http_search.js";
 import { FastifyMikroOrmPlugin } from "./plugins/mikro.js";
 import SenditRoutes from "./routes/routes.js";
-import { AuthPlugin } from "./plugins/auth";
+import { AuthPlugin } from "./plugins/auth.js";
 
 const app = Fastify();
 

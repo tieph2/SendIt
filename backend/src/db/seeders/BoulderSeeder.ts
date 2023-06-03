@@ -13,6 +13,7 @@ export class BoulderSeeder extends Seeder {
 			score: 1000,
 			grade: 6,
 			note: "Climbers can't use wall features",
+			imgUri: "dog.jpg"
 		});
 		context.boulder2 = em.create(Boulder, {
 			zone: 4,
@@ -20,6 +21,7 @@ export class BoulderSeeder extends Seeder {
 			score: 1500,
 			grade: 6,
 			note: "Dyno move at the start",
+			imgUri: "dog.jpg"
 		});
 		context.boulder3 = em.create(Boulder, {
 			zone: 6,
@@ -27,6 +29,7 @@ export class BoulderSeeder extends Seeder {
 			score: 1000,
 			grade: 6,
 			note: "Bat-hang",
+			imgUri: "dog.jpg"
 		});
 	}
 }
