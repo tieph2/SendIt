@@ -4,35 +4,39 @@ import landing from '../assets/images/landing.jpg';
 
 export const Home = () => {
 	return (
-		<div className={"homePage flex justify-center items-center h-screen"}>
-			<IntroCard/>
+		<div className={"homePage flex flex-row gap-6 justify-center items-center h-screen"}>
+			<div className="hero-img w-96"></div>
+			<div className={"hero-content flex flex-col items-start w-96"}>
+				<h1 className="hero-header">Conquer the wall!</h1>
+				<IntroCard/>
+			</div>
 		</div>
 	);
 };
 
-export function Title() {
-	return <h1>Send it!</h1>;
-}
 
 export function Subtitle() {
 	return <h3>Ascending with style</h3>;
 }
 
 export function Intro() {
-	return <p>Welcome to Sendit, the official website for Portland State Annual Community Bouldering Competition. Sign up for boulder, and wait for your turn. May the best climber wins.</p>;
+	return <p>And send it!  Welcome to the official website for Portland State Annual Community Bouldering Competition. Sign up for boulder, and wait for your turn. May the best climber wins.</p>;
 }
 
 export function IntroCard(){
 	return (
-		<div className="hero min-h-screen bg-base-200">
-			<div className="hero-content text-center">
-				<div className="max-w-md">
-					<h1 className="text-5xl font-bold">Hello there</h1>
-					<p className="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
-					<button className="btn btn-primary">Get Started</button>
+			<div className="card w-96 bg-white shadow-xl mt-6  p-6 flex flex-column justify-between leading-normal">
+				<div className="mb-8">
+					<Intro/>
+				</div>
+				<div className="flex items-center">
+					<img className="w-10 h-10 rounded-full mr-4 intro-image" src={landing} alt="Tien climbing a the wall" />
+					<div className="text-sm">
+						<p className="text-gray-900 leading-none">Tien Pham</p>
+						<p className="text-gray-600">{new Date().toLocaleDateString('en-us')}</p>
+					</div>
 				</div>
 			</div>
-		</div>
 	);
 }
 

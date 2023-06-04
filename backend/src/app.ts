@@ -8,8 +8,12 @@ import { FastifySearchHttpMethodPlugin } from "./plugins/http_search.js";
 import { FastifyMikroOrmPlugin } from "./plugins/mikro.js";
 import SenditRoutes from "./routes/routes.js";
 import { AuthPlugin } from "./plugins/auth.js";
+import path from 'path';
 
 const app = Fastify();
+
+
+
 
 await app.register(cors, {
   origin: (origin, cb) => {

@@ -2,6 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+    font-family: "Blogh";
+    src: local("Blogh"),
+    url("../fonts/Blogh.otf") format("opentype");
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: "Dasher";
+    src: local("Dasher"),
+    url("../fonts/Dasher.ttf") format("truetype");
+    font-weight: bold;
+}
+
+
 
 .SenditFancy {
     font-family: "Segoe UI", sans-serif;
@@ -23,14 +38,26 @@
 }
 
 .homePage {
-    background-image: url("../images/wallpattern.png");
+    height: 100%;
+}
+
+.hero-header {
+    font-family: 'Dasher', sans-serif;
+    font-size: 5em;
+    font-weight: bold;
+    color: #3191fc;
+}
+
+.hero-img {
+    background-image: url("../images/Climbers.svg");
+    background-size: contain;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-position: left;
     height: 100%;
 }
 
 .intro-image {
-    background-image: url("../images/wallpattern.png");
+    background-image: url("../images/colorful.jpg");
 }
 
 .countDownTimer {
@@ -43,4 +70,15 @@
 .createBoulderPage {
     padding: 4em;
     background-image: url("../images/colorful.jpg");
+}
+
+.cardImageContainer {
+    width: 100%;
+    height: 200px;
+}
+
+.cardImg {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
 }

@@ -40,6 +40,7 @@
 		"@fastify/cors": "^8.2.1",
 		"@fastify/jwt": "^7.0.0",
 		"@fastify/multipart": "^7.6.0",
+		"@fastify/static": "^6.10.2",
 		"@mikro-orm/core": "5.7.2",
 		"@mikro-orm/migrations": "5.7.2",
 		"@mikro-orm/postgresql": "5.7.2",

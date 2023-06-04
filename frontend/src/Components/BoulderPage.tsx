@@ -27,7 +27,7 @@ export const BoulderPage = () => {
 
 
   return (
-    <div className={"BoulderPage"}>
+    <div className={"BoulderPage flex"}>
       {
         boulders.map((item) => {
           return <BoulderCard

@@ -12,7 +12,7 @@ export const UploadFileToMinio = async(file: any): Promise<boolean> => {
 	let success = false;
 
 	try {
-		await minioClient.putObject("doggr", file.filename, file.file, (error: any, etag: any) => {
+		await minioClient.putObject("sendit", file.filename, file.file, (error: any, etag: any) => {
 			if (error) {
 				console.log("Minio client saving failed", error);
 				success = false;
