@@ -13,6 +13,7 @@ export type ProfileType = {
 };
 
 export type BoulderType = {
+	id: number;
 	imgUri: string;
 	zone: number,
 	color: string,

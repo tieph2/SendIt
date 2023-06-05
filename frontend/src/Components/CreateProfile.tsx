@@ -132,6 +132,7 @@ export const CreateProfile = () => {
 				</div>
 			}
 		</div>
+
 	);
 
 };

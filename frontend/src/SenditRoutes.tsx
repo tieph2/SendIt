@@ -23,7 +23,7 @@ export function SenditRouter() {
 				<Routes>
 					<Route path="/" element={<Home />} />
 					<Route path="/profile/create" element={<CreateProfile/>}/>
-					<Route path="/boulders/create" element={<CreateBoulder/>}/>
+					<Route path="/boulders/create" element={<ProtectedRoute><CreateBoulder/></ProtectedRoute>} />
 					<Route path="/login" element={<LoginButton />} />
 					<Route path="/logout" element={<LogoutButton />} />
 					<Route path="/boulders" element={<BoulderPage />} />

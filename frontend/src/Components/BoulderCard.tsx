@@ -2,7 +2,7 @@ import { BoulderType } from "@/SenditTypes.ts";
 import { useEffect } from "react";
 
 export function BoulderCard(props: BoulderType) {
-  const { imgUri,zone, color,score, grade,note} = props;
+  const { id, imgUri,zone, color,score, grade,note} = props;
 
   const minioUrl = `http://localhost:9000/sendit/${imgUri}`;
 

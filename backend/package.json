@@ -50,6 +50,7 @@
 		"bcrypt": "^5.1.0",
 		"dotenv": "^16.0.3",
 		"fastify": "^4.15.0",
+		"fastify-auth0-verify": "^1.2.0",
 		"fastify-plugin": "^4.5.0",
 		"mikro-orm-soft-delete": "^0.1.0",
 		"minio": "^7.1.1"
