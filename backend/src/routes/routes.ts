@@ -5,6 +5,7 @@ import { FastifyInstance } from "fastify";
 import { UserRoutesInit } from "./user_routes.js";
 import { BoulderRoutesInit } from "./boulder_routes.js";
 import { AttemptRouteInit } from "./attempt_routes.js";
+import { RegistrationRouteInit } from "./register_routes.js";
 
 /** This function creates all backend routes for the site
  *
@@ -20,6 +21,7 @@ async function SenditRoutes(app: FastifyInstance, _options = {}) {
 	UserRoutesInit(app);
 	BoulderRoutesInit(app);
 	AttemptRouteInit(app);
+	RegistrationRouteInit(app)
 }
 
 export default SenditRoutes;

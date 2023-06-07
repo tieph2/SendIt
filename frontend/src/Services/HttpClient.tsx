@@ -14,10 +14,16 @@ export const httpClient = axios.create({
 	},
 });
 
-export async function getNextProfileFromServer() {
+
+export async function getNextClimberFromServer() {
 	const profile =
 		await httpClient.get<ProfileType>("/profile");
 	return profile.data;
+}
+
+export async function removeClimberFromQueue() {
+	const profile =
+		await httpClient.delete("/attempt");
 }
 
 export async function getBouldersFromServer() {
@@ -25,3 +31,13 @@ export async function getBouldersFromServer() {
 		await httpClient.get("/boulders");
 	return boulders.data;
 }
+
+
+
+export async function getQueueFromServer() {
+	const queue =
+		await httpClient.get<ProfileType>("/regsitration");
+	return queue.data;
+}
+
+

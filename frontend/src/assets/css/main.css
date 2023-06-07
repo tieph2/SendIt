@@ -32,13 +32,28 @@
     flex-direction: column;
 }
 
+.header {
+    background: #f2f4f7;
+}
+
 .main {
     height: 100%;
     width: 100%;
+    margin: 2em auto;
+
+}
+
+.container {
+    margin: auto;
+    max-width: 80%;
 }
 
 .homePage {
     height: 100%;
+}
+
+.hero-content {
+    width: 100%;
 }
 
 .hero-header {
@@ -52,8 +67,10 @@
     background-image: url("../images/Climbers.svg");
     background-size: contain;
     background-repeat: no-repeat;
-    background-position: left;
-    height: 100%;
+    background-position: right;
+    height: 600px;
+    width: 100%;
+
 }
 
 .intro-image {
@@ -62,9 +79,11 @@
 
 .countDownTimer {
     width: 100%;
-    background-color: white;
     margin: auto;
     text-align: center;
+    padding: 1em 0;
+    color: white;
+    background: #011c2b;
 }
 
 .createBoulderPage {
@@ -81,4 +100,10 @@
     height: 100%;
     width: 100%;
     object-fit: cover;
+}
+
+.avatar-sm {
+    width: 44px;
+    height:44px;
+    border-radius: 50%;
 }

@@ -4,12 +4,15 @@ import landing from '../assets/images/landing.jpg';
 
 export const Home = () => {
 	return (
+		<div className="container">
+
 		<div className={"homePage flex flex-row gap-6 justify-center items-center h-screen"}>
-			<div className="hero-img w-96"></div>
-			<div className={"hero-content flex flex-col items-start w-96"}>
+			<div className="hero-img"></div>
+			<div className={"hero-content flex flex-col items-start"}>
 				<h1 className="hero-header">Conquer the wall!</h1>
 				<IntroCard/>
 			</div>
+		</div>
 		</div>
 	);
 };

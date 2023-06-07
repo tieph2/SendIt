@@ -2,19 +2,13 @@ import type { Dictionary, EntityManager } from "@mikro-orm/core";
 import { Seeder } from "@mikro-orm/seeder";
 import { Boulder } from "../entities/Boulder.js";
 import {UploadFileToMinio} from "../../plugins/minio.js";
-
-
 import path from "path";
 import { fileURLToPath } from 'url';
-
-
-
 import fs from "fs/promises";
 
 
 
 
-const filePath = "/path/to/file";
 
 
 /**

@@ -3,7 +3,7 @@ import { BoulderCard } from "@/Components/BoulderCard.tsx";
 import { ProfileType } from "@/SenditTypes.ts";
 import { useAuth0 } from "@auth0/auth0-react";
 import {
-  getBouldersFromServer, getNextProfileFromServer
+  getBouldersFromServer, getNextClimberFromServer
 } from "@/Services/HttpClient.tsx";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -42,7 +42,8 @@ export const BoulderPage = () => {
 
 
   return (
-    <div className={"BoulderPage flex"}>
+    <div className="container">
+      <div className={"BoulderPage flex flex-row gap-12"}>
       {
         boulders.map((item) => {
           return <BoulderCard
@@ -51,6 +52,8 @@ export const BoulderPage = () => {
           />;
         })
       }
+      </div>
     </div>
+
   );
 };

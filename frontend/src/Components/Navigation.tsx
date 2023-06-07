@@ -8,7 +8,7 @@ export function NavBar() {
   const { user, isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
 
   return (
-    <nav className={"navbar justify-center rounded-b shadow-lg flex flex-col"}>
+    <nav className={"navbar justify-center rounded-b flex flex-col"}>
       <div className={"navbar-center lg:flex"}>
 
         <ul className={"menu menu-horizontal m-0"}>

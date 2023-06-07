@@ -18,7 +18,8 @@ app.register(import('fastify-auth0-verify'), {
 await app.register(cors, {
   origin: (origin, cb) => {
     cb(null, true);
-  }
+  },
+  methods: ['GET','POST','PUT','DELETE','PATCH','SEARCH'],
 });
 
 await app.register(multipart);

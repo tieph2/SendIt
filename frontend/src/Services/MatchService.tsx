@@ -1,7 +1,7 @@
 import { httpClient } from "@/Services/HttpClient.tsx";
 
-export const MatchService = {
-	async send(sender_id: number, receiver_id: number) {
-		return httpClient.post("/match", { id: sender_id, matchee_id: receiver_id});
+export const PassService = {
+	async send(climber_id: number, boulder_id: number) {
+		return httpClient.post("/attempts", { climber_id: climber_id, boulder_id: boulder_id});
 	}
 };

@@ -42,3 +42,9 @@ export type IUpdateAttemptBody = {
 	boulder_id: number;
 	successful: boolean;
 };
+
+
+export type RegistrationBody = {
+	climber_id: number;
+	boulder_id: number;
+};
