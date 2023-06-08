@@ -1,5 +1,4 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
-import multipart from "@fastify/multipart";
 import { SOFT_DELETABLE_FILTER } from "mikro-orm-soft-delete";
 import { User, UserRole } from "../db/entities/User.js";
 import { ICreateUsersBody, IUpdateUsersBody } from "../types.js";
@@ -21,8 +20,8 @@ export function UserRoutesInit(app: FastifyInstance) {
 		}
 	});
 
-	// Route that returns all climbers
-	app.get("/users/competitors", async (req, reply) => {
+	// Route that returns all judges
+	app.get("/users/judges", async (req, reply) => {
 		try {
 			const theUser = await req.em.find(User, { role: UserRole.JUDGE });
 			reply.send(theUser);
@@ -139,5 +138,14 @@ export function UserRoutesInit(app: FastifyInstance) {
 			reply.status(500)
 				.send(err);
 		}
+	});
+
+	app.get("/profile", async(req, reply) => {
+
+		const userRepo = req.em.getRepository(User);
+		const totalCount = await userRepo.count();
+		const randomOffset = Math.floor(Math.random() * totalCount);
+		const randomEntity = await userRepo.findOne({}, {offset: randomOffset});
+		reply.send(randomEntity);
 	});
 }

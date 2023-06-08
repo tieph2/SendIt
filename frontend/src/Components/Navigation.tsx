@@ -2,10 +2,9 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { Link } from "react-router-dom";
 import { LoginButton } from "@/Components/LoginButton.tsx";
 import { LogoutButton } from "@/Components/LogoutButton.tsx";
-import { useEffect, useState } from "react";
 
 export function NavBar() {
-  const { user, isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
+  const { user, isAuthenticated } = useAuth0();
 
   return (
     <nav className={"navbar justify-center rounded-b flex flex-col"}>
@@ -17,9 +16,12 @@ export function NavBar() {
           {
             user?.["https://my-app.example.com/roles"][0] === "Judge"
             ?
-              <li><Link to="/boulders/create"> Create Boulder</Link> </li>
-              :
-              null
+              <>
+                <li><Link to="/judge"> Judge </Link> </li>
+                <li><Link to="/boulders/create"> Create Boulder</Link> </li>
+              </>
+            :
+              <li><Link to="/profile/edit"> Competition signup</Link> </li>
           }
           {
             isAuthenticated

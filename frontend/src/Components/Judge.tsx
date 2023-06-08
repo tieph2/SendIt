@@ -1,61 +1,88 @@
 
-import { Profile } from "@/Components/Profile.tsx";
-import { ProfileType } from "@/SenditTypes.ts";
-import { getNextClimberFromServer } from "@/Services/HttpClient.tsx";
+import {  RegistrationType } from "@/SenditTypes.ts";
+import { GetCurrentRegistration } from "@/Services/QueueService.tsx";
 import { PassService } from "@/Services/PassService.tsx";
 import { Dequeue } from "@/Services/QueueService.tsx";
-import { useContext, useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
+import { CurrentRegistration } from "@/Components/CurrentRegistration.tsx";
 
 export const Judge = () => {
-  const [currentProfile, setCurrentProfile] = useState<ProfileType>();
-  const climber_id = 1;
-  const boulder_id = 1;
+  const [currentRegistration, setCurrentRegistration] = useState<RegistrationType>();
+  const [zone, setZone] = useState(1);
 
-  const fetchProfile = () => {
-    getNextClimberFromServer()
-      .then((response) => setCurrentProfile(response))
-      .catch( (err) => console.log("Error in fetch profile", err));
+  const fetchRegistration = () => {
+    GetCurrentRegistration.send(zone)
+      .then((response) => {
+        setCurrentRegistration(response);
+      })
+      .catch( (err) => {
+        console.log("Error in fetch next climber in queue", err);
+        setCurrentRegistration(null);
+      });
   };
 
   useEffect(() => {
-    fetchProfile();
-  }, []);
+    fetchRegistration();
+  });
 
   const onPassButtonClick = () => {
-    PassService.send(climber_id, boulder_id)
-      .then(fetchProfile)
+    PassService.send(currentRegistration.id, currentRegistration.boulder_id)
+      .then(fetchRegistration)
       .catch(err => {
+        console.log("Error passing climber");
         console.error(err);
-        fetchProfile();
+        fetchRegistration();
       });
-    Dequeue.send(climber_id, boulder_id)
-      .then(fetchProfile)
+    Dequeue.send(currentRegistration.id, currentRegistration.boulder_id)
+      .then(fetchRegistration)
       .catch(err => {
         console.error(err);
-        fetchProfile();
+        fetchRegistration();
       });
   };
 
   const onFailButtonClick = () => {
-    Dequeue.send(climber_id, boulder_id)
-      .then(fetchProfile)
+    Dequeue.send(currentRegistration.id, currentRegistration.boulder_id)
+      .then(fetchRegistration)
       .catch(err => {
         console.error(err);
-        fetchProfile();
+        fetchRegistration();
       });
   };
 
-  const profile = (
-    <Profile
-      {...currentProfile}
+
+  const nextClimber = (
+    <CurrentRegistration
+      {...currentRegistration}
       onPassButtonClick={onPassButtonClick}
       onFailButtonClick={onFailButtonClick}
     />
   );
 
   return (
-    <>
-      {profile}
-    </>
+    <div className={"container"}>
+      <div className="mb-6">
+        <label htmlFor="option1" className="block font-medium mb-1">
+          Zone
+        </label>
+        <select
+          id="option1"
+          className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          onChange={e => setZone(parseInt(e.target.value))}
+        >
+          <option value="">Selection</option>
+          <option value="1">Zone 1</option>
+          <option value="2">Zone 2</option>
+          <option value="3">Zone 3</option>
+        </select>
+      </div>
+      {
+        currentRegistration
+          ?
+          nextClimber
+          :
+          <p>Zone {zone} has no registered climber :(</p>
+      }
+    </div>
   );
 };

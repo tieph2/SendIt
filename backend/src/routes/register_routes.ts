@@ -71,6 +71,7 @@ export function RegistrationRouteInit(app: FastifyInstance) {
   //Delete registration
   app.delete<{ Body: RegistrationBody }>("/registration", async (req, reply) => {
     const { climber_id, boulder_id } = req.body;
+    console.log("Deleting")
 
     try {
       const registration = await req.em.findOneOrFail(Registration, {
@@ -84,6 +85,56 @@ export function RegistrationRouteInit(app: FastifyInstance) {
     }
 
   });
+
+
+// Fastify route handler
+  app.search("/registration/top", async (req, reply) => {
+    const { zone } = req.body;
+
+    try {
+
+      // Query Boulders by zone
+      const boulders = await req.em.find(Boulder, { zone });
+
+      if (boulders.length === 0) {
+        return reply.status(404).send('No boulders found in the specified zone.');
+      }
+
+      // Get the oldest Registration for a Boulder in the specified zone
+      const oldestRegistration = await req.em.findOne(Registration, { boulder: { $in: boulders } }, { orderBy: { created_at: 'ASC' } });
+
+      if (!oldestRegistration) {
+        reply.status(404).send('No registrations found for the boulders in the specified zone.');
+        return null;
+      }
+
+      // Query User and Boulder using climber_id and boulder_id from the oldest registration
+      const user = await req.em.findOne(User, { id: oldestRegistration.climber });
+      const boulder = await req.em.findOne(Boulder, { id: oldestRegistration.boulder });
+
+
+
+      const result = {
+        imgUri: user.imgUri,
+        name: user.name,
+        skill_level: user.skill_level,
+        id: user.id,
+        boulder_id: boulder.id,
+        boulderImgUri: boulder.imgUri,
+        zone: boulder.zone,
+        color: boulder.color,
+        score: boulder.score,
+        grade: boulder.grade,
+        note: boulder.note
+      }
+
+      return reply.send(result);
+    } catch (error) {
+      return reply.status(500).send('An error occurred while processing the request.');
+    }
+
+  });
+
 
 
 

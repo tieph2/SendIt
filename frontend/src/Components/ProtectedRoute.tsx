@@ -3,7 +3,7 @@ import { Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 export const ProtectedRoute = ({children}) => {
-	const {getAccessTokenSilently} = useAuth0();
+	const {user, getAccessTokenSilently} = useAuth0();
 	const [token, setToken] = useState("");
 
 	useEffect(() => {
@@ -18,11 +18,11 @@ export const ProtectedRoute = ({children}) => {
 		});
 	});
 
-	if (!token) {
+	if (!user) {
 		return <Navigate to="/login" replace />;
 	}
 	else {
-		console.log(token);
+		console.log(user);
 	}
 
 	return children;

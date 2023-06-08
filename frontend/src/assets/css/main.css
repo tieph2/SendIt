@@ -16,6 +16,28 @@
     font-weight: bold;
 }
 
+figure {
+    margin: 0;
+}
+
+
+h1, h2, h3, h4, h5, p {
+    margin: 0 0 .2em 0;
+}
+
+h1, h2, h3, h4, h5 {
+    margin: 0 0 .2em 0;
+    line-height: 1.0;
+}
+
+h4 {
+    font-size: .75em;
+}
+
+p {
+    font-size: 16px;
+    line-height: 1.5;
+}
 
 
 .SenditFancy {
@@ -39,12 +61,11 @@
 .main {
     height: 100%;
     width: 100%;
-    margin: 2em auto;
 
 }
 
 .container {
-    margin: auto;
+    margin: 2em auto;
     max-width: 80%;
 }
 
@@ -103,7 +124,26 @@
 }
 
 .avatar-sm {
-    width: 44px;
-    height:44px;
+    width: 32px;
+    height:32px;
     border-radius: 50%;
+}
+
+.boulder-bg {
+    background-size: cover;
+    background: linear-gradient(0deg, rgba(255, 0, 150, 0.3), rgba(255, 0, 150, 0.3));
+    color: white;
+}
+
+.boulderColorBlock {
+    width: 50px;
+    height: 25px;
+    border-radius: 8px;
+}
+
+.avatar-list {
+}
+
+.card-body {
+    padding: 1em;
 }

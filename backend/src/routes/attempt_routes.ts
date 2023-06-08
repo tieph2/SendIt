@@ -86,15 +86,29 @@ export function AttemptRouteInit(app: FastifyInstance) {
 	app.put<{ Body: IUpdateAttemptBody }>("/attempts", async (req, reply) => {
 		const { climber_id, boulder_id, successful } = req.body;
 
-		const attemptToChange = await req.em.findOneOrFail(Attempt, {
+		const attemptToChange = await req.em.findOne(Attempt, {
 			climber: climber_id,
 			boulder: boulder_id,
 		});
-		attemptToChange.successful = successful;
-		attemptToChange.count++;
+
+		const newAttempt = {
+			climber: climber_id,
+			boulder: boulder_id,
+			count: 0,
+			successful: successful,
+		};
+
+		if (attemptToChange) {
+			attemptToChange.successful = successful;
+			attemptToChange.count++;
+		}
+		else {
+			await req.em.create(Attempt, newAttempt);
+		}
+
 
 		// Reminder -- this is how we persist our JS object changes to the database itself
 		await req.em.flush();
-		reply.send(attemptToChange);
+		reply.send(attemptToChange? attemptToChange : newAttempt);
 	});
 }

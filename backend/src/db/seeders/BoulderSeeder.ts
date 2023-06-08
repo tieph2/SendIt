@@ -43,13 +43,13 @@ export class BoulderSeeder extends Seeder {
 			zone: 1,
 			color: "red",
 			score: 1000,
-			grade: 6,
+			grade: 1,
 			note: "Climbers can't use wall features",
 			imgUri: "boulder1.jpg"
 		});
 		context.boulder2 = em.create(Boulder, {
 			zone: 4,
-			color: "red",
+			color: "blue",
 			score: 1500,
 			grade: 6,
 			note: "Dyno move at the start",
@@ -59,7 +59,15 @@ export class BoulderSeeder extends Seeder {
 			zone: 6,
 			color: "red",
 			score: 1000,
-			grade: 6,
+			grade: 3,
+			note: "Bat-hang",
+			imgUri: "boulder3.jpg"
+		});
+		context.boulder4 = em.create(Boulder, {
+			zone: 1,
+			color: "blue",
+			score: 1000,
+			grade: 12,
 			note: "Bat-hang",
 			imgUri: "boulder3.jpg"
 		});

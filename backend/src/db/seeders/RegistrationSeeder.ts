@@ -1,7 +1,5 @@
 import type { Dictionary, EntityManager } from "@mikro-orm/core";
 import { Seeder } from "@mikro-orm/seeder";
-import { User } from "../entities/User.js";
-import { Boulder } from "../entities/Boulder.js";
 import { Registration } from "../entities/Registration.js";
 
 /**
@@ -23,5 +21,22 @@ export class RegistrationSeeder extends Seeder {
       climber: context.user2,
       boulder: context.boulder3
     });
+    attemptRepo.create({
+      climber: context.user2,
+      boulder: context.boulder1
+    });
+    attemptRepo.create({
+      climber: context.user3,
+      boulder: context.boulder1
+    });
+    attemptRepo.create({
+      climber: context.user1,
+      boulder: context.boulder4
+    });
+    attemptRepo.create({
+      climber: context.user2,
+      boulder: context.boulder4
+    });
+
   }
 }

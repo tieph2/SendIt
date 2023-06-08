@@ -3,7 +3,7 @@ import { Home } from "@/Components/HomePage.tsx";
 import { BoulderPage} from "@/Components/BoulderPage.tsx";
 import { ProtectedRoute } from "@/Components/ProtectedRoute.tsx";
 import { useAuth0 } from "@auth0/auth0-react";
-import { Link, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { LoginButton } from "@/Components/LoginButton.tsx";
 import { LogoutButton } from "@/Components/LogoutButton.tsx";
 import { CreateBoulder } from "@/Components/CreateBoulder.tsx";
@@ -22,7 +22,7 @@ export function SenditRouter() {
 				<Routes>
 					<Route path="/" element={<Home />} />
 					<Route path="/judge" element={<Judge />} />
-					<Route path="/profile/create" element={<CreateProfile/>}/>
+					<Route path="/profile/edit" element={<ProtectedRoute><CreateProfile/></ProtectedRoute>} />
 					<Route path="/boulders/create" element={<ProtectedRoute><CreateBoulder/></ProtectedRoute>} />
 					<Route path="/login" element={<LoginButton />} />
 					<Route path="/logout" element={<LogoutButton />} />

@@ -1,14 +1,9 @@
-export type State = {
-	currentProfile: ProfileType;
-	likeHistory: Array<ProfileType>;
-	passHistory: Array<ProfileType>;
-};
+
 
 export type ProfileType = {
 	imgUri: string;
-	thumbUri: string;
 	name: string;
-	petType: string;
+	skill_level: string;
 	id: number;
 };
 
@@ -21,3 +16,26 @@ export type BoulderType = {
 	grade: number,
 	note: string
 }
+
+export type RegistrationType = {
+	imgUri: string;
+	name: string;
+	skill_level: string;
+	id: number;
+	boulder_id: number;
+	boulderImgUri: string;
+	zone: number,
+	color: string,
+	score: number,
+	grade: number,
+	note: string
+}
+
+export const Color = {
+	"red": "#D05353",
+	"blue": "#5465FF",
+	"yellow": "#F9A620",
+	"green": "#548C2F",
+	"pink": "#EA526F",
+	"black": "#FFF"
+};

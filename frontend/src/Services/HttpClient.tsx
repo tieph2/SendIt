@@ -1,11 +1,10 @@
-import { ProfileType, BoulderType } from "@/SenditTypes.ts";
 import axios from "axios";
 
 const serverIP = import.meta.env.API_HOST;
 const serverPort = import.meta.env.PORT;
 
-const serverUrl = `http://${serverIP}:${serverPort}`;
-console.log(serverUrl);
+export const serverUrl = `http://${serverIP}:${serverPort}`;
+
 // This is why I use Axios over Fetch
 export const httpClient = axios.create({
 	baseURL: serverUrl,
@@ -15,16 +14,6 @@ export const httpClient = axios.create({
 });
 
 
-export async function getNextClimberFromServer() {
-	const profile =
-		await httpClient.get<ProfileType>("/profile");
-	return profile.data;
-}
-
-export async function removeClimberFromQueue() {
-	const profile =
-		await httpClient.delete("/attempt");
-}
 
 export async function getBouldersFromServer() {
 	const boulders =
@@ -34,10 +23,5 @@ export async function getBouldersFromServer() {
 
 
 
-export async function getQueueFromServer() {
-	const queue =
-		await httpClient.get<ProfileType>("/regsitration");
-	return queue.data;
-}
 
 

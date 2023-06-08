@@ -61,7 +61,7 @@ export const CreateBoulder = () => {
   return (
     <div className="createBoulderPage">
       <div className="max-w-md mx-auto mt-4 p-6 bg-white rounded-md shadow-md">
-        <h2 className="text-2xl font-bold mb-6">Form Component</h2>
+        <h2 className="text-2xl font-bold mb-6">Create a boulder problem</h2>
         <form>
           <div className="mb-6">
             <label htmlFor="option1" className="block font-medium mb-1">
