@@ -1,6 +1,7 @@
 import { FastifyInstance } from "fastify";
 import { Boulder } from "../db/entities/Boulder.js";
 import { User, UserRole } from "../db/entities/User.js";
+import { UploadFileToMinio } from "../plugins/minio.js";
 import { ICreateBoulderBody, IUpdateBoulderBody } from "../types.js";
 
 export function BoulderRoutesInit(app: FastifyInstance) {
@@ -30,23 +31,32 @@ export function BoulderRoutesInit(app: FastifyInstance) {
    that fixes this problem.  We'll do it the simpler way for this solution
    and take what we need from the database at any cost.
    */
+
+
 	app.post<{ Body: ICreateBoulderBody }>("/boulders", async (req, reply) => {
-		const { zone, color, score, grade, note } = req.body;
 
 		try {
-			// Create the new boulder problem
-			const newBoulder = await req.em.create(Boulder, {
-				zone: zone,
-				color: color,
-				score: score,
-				grade: grade,
-				note: note,
-			});
-			// Send our changes to the database
-			await req.em.flush();
+			const data = await req.file();
 
-			// Let the user know everything went fine
-			return reply.send(newBoulder);
+
+			const body = Object.fromEntries(
+				// @ts-ignore
+				Object.keys(data.fields).map( (key) => [key, data.fields[key].value])
+			);
+			const { zone, grade, score, color, note } = body;
+			await UploadFileToMinio(data);
+
+			const newUser = await req.em.create(Boulder, {
+				zone,
+				color,
+				score,
+				grade,
+				note,
+				imgUri: data.filename,
+			});
+
+			await req.em.flush();
+			return reply.send(newUser);
 		} catch (err) {
 			return reply.status(500).send({ message: err.message });
 		}

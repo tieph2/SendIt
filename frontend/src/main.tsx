@@ -14,30 +14,16 @@ const serverPort = import.meta.env.PORT;
 
 const rootContainer: HTMLElement = document.getElementById("root") as HTMLElement;
 
-//Add token to all request body
-const updateAxios = async (token: string) => {
-	httpClient.interceptors.request.use(
-		async (config) => {
-			// @ts-ignore
-			config.headers = {
-				Authorization: `Bearer ${token}`,
-				Accept: "application/json",
-			};
-			return config;
-		},
-		(error) => {
-			console.error("REJECTED TOKEN PROMISE");
-			Promise.reject(error);
-		}
-	);
-};
 
 ReactDOM.createRoot(rootContainer).render(
 	<React.StrictMode>
 		<Auth0Provider
 			domain={domain}
 			clientId={clientID}
-			authorizationParams={{redirect_uri: "http://localhost:5173" }}
+			authorizationParams={{
+				redirect_uri: window.location.origin,
+				scope: scope
+		}}
 		>
 			<App />
 		</Auth0Provider>

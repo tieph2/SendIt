@@ -10,7 +10,7 @@ export function NavBar() {
     <nav className={"navbar justify-center rounded-b flex flex-col"}>
       <div className={"navbar-center lg:flex"}>
 
-        <ul className={"menu menu-horizontal m-0"}>
+        <ul className={"menu menu-horizontal justify-center m-0"}>
           <li><Link to="/boulders"> Boulders</Link> </li>
 
           {
@@ -27,8 +27,9 @@ export function NavBar() {
             isAuthenticated
             ?
               <>
-                <p className="text-center">{user.name} </p>
-                <li><LogoutButton/></li>
+                <li>
+                  <img className={"avatar-sm"} src={user.picture} alt={"Your profile picture"}/>
+                  <LogoutButton/></li>
               </>
             :
             <li><LoginButton/></li>

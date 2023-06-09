@@ -1,7 +1,11 @@
 
 import { BoulderCard } from "@/Components/BoulderCard.tsx";
 import { useAuth0 } from "@auth0/auth0-react";
-import { getBouldersFromServer } from "@/Services/HttpClient.tsx";
+import {
+  getBouldersFromServer,
+  httpClient,
+  serverUrl
+} from "@/Services/HttpClient.tsx";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -12,19 +16,53 @@ export const BoulderPage = () => {
 
   const { user, isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
   const [token, setToken] = useState("");
+  const [userId, setUserId] = useState();
+
+  const getIdFromServer = {
+    async send(email: string) {
+      const getIdConfig = {
+        method: 'search',  // Specify your method here
+        url: serverUrl + "/users",
+        crossDomain: true,
+        data: {"email": email}
+      };
+      const id = await httpClient.request(getIdConfig);
+      return id.data;
+    }
+  };
+
+  // useEffect(() => {
+  //   const getToken = async () => {
+  //     const token = await getAccessTokenSilently();
+  //     // console.log("Trying to get access token");
+  //     // const accessToken = await getAccessTokenSilently({
+  //     //   authorizationParams: {
+  //     //     audience: "http://localhost:8080",
+  //     //     scope: "boulders users",
+  //     //   },
+  //     // });
+  //     // console.log("Got access token");
+  //     return token;
+  //   };
+  //
+  //   getToken().then((value) => {
+  //     setToken(value);
+  //     console.log(token);
+  //     console.log(user);
+  //   });
+  // });
 
   useEffect(() => {
-    const getToken = async () => {
-      const token = await getAccessTokenSilently();
-      return token;
+    const getId = async () => {
+      const id = await getIdFromServer.send(user.email);
+      return id;
     };
 
-    getToken().then((value) => {
-      setToken(value);
-      console.log(token);
-      console.log(user);
+    getId().then((value) => {
+      setUserId(value);
     });
   });
+
 
 
   const fetchBoulders = () => {
@@ -46,6 +84,7 @@ export const BoulderPage = () => {
           return <BoulderCard
             key={item.id}
             {...item}
+            user_id={userId}
           />;
         })
       }

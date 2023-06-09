@@ -56,7 +56,7 @@ export class BoulderSeeder extends Seeder {
 			imgUri: "boulder2.jpg"
 		});
 		context.boulder3 = em.create(Boulder, {
-			zone: 6,
+			zone: 2,
 			color: "red",
 			score: 1000,
 			grade: 3,

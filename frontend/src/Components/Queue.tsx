@@ -6,7 +6,7 @@ const minioUrl = `http://localhost:9000/sendit/`;
 
 
 export const Queue = (props : {boulder_id}) => {
-
+  const [time, setTime] = useState(new Date());
   const [currentClimbers, setCurrentClimbers] = useState([]);
   const { boulder_id } = props;
 
@@ -17,12 +17,21 @@ export const Queue = (props : {boulder_id}) => {
     GetQueue.send(boulder_id)
       .then((response) => {
         setCurrentClimbers(response);
-        console.log(currentClimbers);
       })
       .catch( (err) => console.log("Error in fetch profile", err));
   };
     fetchClimbers();
-  }, [boulder_id]);
+  });
+
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTime(new Date());
+      console.log("Queue refreshed");
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
 
 
   return (

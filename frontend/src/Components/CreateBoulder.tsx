@@ -9,6 +9,7 @@ export enum SubmissionStatus {
 
 export const CreateBoulder = () => {
 
+
   const [selectedFile, setSelectedFile] = useState();
   const [zone, setZone] = useState(0);
   const [color, setColor] = useState("Red");
@@ -47,6 +48,7 @@ export const CreateBoulder = () => {
           setSubmitted(SubmissionStatus.SubmitSucceeded);
         } else {
           setSubmitted(SubmissionStatus.SubmitFailed);
+          console.log("Submission failed");
         }
       });
   };
@@ -56,62 +58,68 @@ export const CreateBoulder = () => {
     const sanitizedValue = e.target.value.replace(/\D/g, '');
     // Update the input value
     e.target.value = sanitizedValue;
+    setScore(e.target.value);
   };
 
   return (
     <div className="createBoulderPage">
       <div className="max-w-md mx-auto mt-4 p-6 bg-white rounded-md shadow-md">
         <h2 className="text-2xl font-bold mb-6">Create a boulder problem</h2>
-        <form>
           <div className="mb-6">
-            <label htmlFor="option1" className="block font-medium mb-1">
+            <label htmlFor="zone-selection" className="block font-medium mb-1">
               Zone
             </label>
             <select
-              id="option1"
+              id="zone-selection"
               className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              onChange={e => setZone(parseInt(e.target.value))}
+
             >
               <option value="">Which zone is the problem set in</option>
-              <option value="option1">Zone 1</option>
-              <option value="option2">Zone 2</option>
-              <option value="option3">Zone 3</option>
+              <option value="1">Zone 1</option>
+              <option value="2">Zone 2</option>
+              <option value="3">Zone 3</option>
+              <option value="4">Zone 4</option>
+
             </select>
           </div>
 
           <div className="mb-6">
-            <label htmlFor="option2" className="block font-medium mb-1">
-              Option 2
+            <label htmlFor="color-selection" className="block font-medium mb-1">
+              Color
             </label>
             <select
-              id="option2"
+              id="color-selection"
               className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              onChange={e => setColor(e.target.value)}
             >
               <option value="">What color is the problem</option>
-              <option value="option1">Red</option>
-              <option value="option2">Green</option>
-              <option value="option3">Blue</option>
-              <option value="option3">Yellow</option>
-              <option value="option3">Black</option>
-              <option value="option3">Pink</option>
+              <option value="red">Red</option>
+              <option value="green">Green</option>
+              <option value="blue">Blue</option>
+              <option value="yellow">Yellow</option>
+              <option value="black">Black</option>
+              <option value="pink">Pink</option>
             </select>
           </div>
 
           <div className="mb-6">
-            <label htmlFor="option3" className="block font-medium mb-1">
+            <label htmlFor="grade-selection" className="block font-medium mb-1">
               What grade is the problem (V1-V7)
             </label>
             <select
-              id="option3"
+              id="grade-selection"
               className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              onChange={e => setGrade(parseInt(e.target.value))}
             >
               <option value="">Select an option</option>
-              <option value="option1">V1</option>
-              <option value="option1">V2</option>
-              <option value="option1">V3</option>
-              <option value="option1">V4</option>
-              <option value="option1">V5</option>
-              <option value="option1">V6</option>
-              <option value="option1">V7</option>
+              <option value="1">V1</option>
+              <option value="2">V2</option>
+              <option value="3">V3</option>
+              <option value="4">V4</option>
+              <option value="5">V5</option>
+              <option value="6">V6</option>
+              <option value="7">V7</option>
             </select>
           </div>
 
@@ -137,23 +145,39 @@ export const CreateBoulder = () => {
               id="textInput"
               className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Sit start, bat-hang, etc..."
+              onChange={e => setNote(e.target.value)}
             />
           </div>
 
           <div className="mb-6">
-            <label htmlFor="file" className="block font-medium mb-1">
+            <label htmlFor="boulderpic" className="block font-medium mb-1">
               Upload an image of the boulder problem
             </label>
-            <input type="file" id="file" className="w-full py-2" />
+            <input
+              type="file"
+              id="boulderpic"
+              className="w-full py-2"
+              name="boulderpic"
+              accept={"image/png, image/jpeg"}
+              onChange={onFileChange}
+            />
           </div>
 
           <button
             type="submit"
             className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-200"
+            onClick={onUploadFile}
           >
             Submit
           </button>
-        </form>
+        {
+          submitted === SubmissionStatus.SubmitFailed &&
+          <h3 className="text-red-500 text-center">Error. Could not create boulder!</h3>
+        }
+        {
+          submitted === SubmissionStatus.SubmitSucceeded &&
+          <h3 className="text-green-500 text-center">Boulder created!</h3>
+        }
       </div>
     </div>
   );

@@ -63,7 +63,7 @@ export const Judge = () => {
     <div className={"container"}>
       <div className="mb-6">
         <label htmlFor="option1" className="block font-medium mb-1">
-          Zone
+          Select your zone
         </label>
         <select
           id="option1"
@@ -74,6 +74,8 @@ export const Judge = () => {
           <option value="1">Zone 1</option>
           <option value="2">Zone 2</option>
           <option value="3">Zone 3</option>
+          <option value="4">Zone 4</option>
+
         </select>
       </div>
       {

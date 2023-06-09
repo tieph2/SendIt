@@ -1,4 +1,5 @@
 import landing from '../assets/images/landing.jpg';
+import { Link } from "react-router-dom";
 
 
 
@@ -38,6 +39,9 @@ export function IntroCard(){
 						<p className="text-gray-900 leading-none">Tien Pham</p>
 						<p className="text-gray-600">{new Date().toLocaleDateString('en-us')}</p>
 					</div>
+					<button className={"btn btn-primary"}>
+						<Link to="/profile/edit"> Register now!</Link>
+					</button>
 				</div>
 			</div>
 	);

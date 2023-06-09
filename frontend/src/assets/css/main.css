@@ -39,6 +39,9 @@ p {
     line-height: 1.5;
 }
 
+a {
+    text-decoration: none;
+}
 
 .SenditFancy {
     font-family: "Segoe UI", sans-serif;

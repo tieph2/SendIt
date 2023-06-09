@@ -1,9 +1,8 @@
 import { Boulder } from "./db/entities/Boulder";
 
 export type ICreateUsersBody = {
-	name: string;
 	email: string;
-	password: string;
+	name: string;
 	skill_level: number;
 };
 

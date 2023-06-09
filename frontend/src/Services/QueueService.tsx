@@ -34,6 +34,13 @@ export const GetQueue = {
 };
 
 
+export const EnQueue = {
+	async send(climber_id: number, boulder_id: number) {
+		const registration = await httpClient.post("/registration", {climber_id: climber_id, boulder_id: boulder_id});
+		return registration.data;
+	}
+};
+
 
 export const GetCurrentRegistration = {
 	async send(zone: number) {

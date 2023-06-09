@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from "react-router-dom";
 
 const Countdown = () => {
   const [countdown, setCountdown] = useState({
-    days: 0,
     hours: 0,
-    minutes: 0
+    minutes: 0,
+    seconds: 0
   });
 
   useEffect(() => {
     const targetDate = new Date();
-    targetDate.setDate(targetDate.getDate() + 10);
+    targetDate.setMinutes(targetDate.getMinutes() + 1);
 
     const intervalId = setInterval(() => {
       const now = new Date();
@@ -18,13 +19,14 @@ const Countdown = () => {
 
       if (difference <= 0) {
         clearInterval(intervalId);
-        setCountdown({ days: 0, hours: 0, minutes: 0 });
+        setCountdown({ hours: 0, minutes: 0, seconds: 0 });
       } else {
-        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
-        const minutes = Math.floor((difference / (1000 * 60)) % 60);
+        const totalSeconds = Math.floor(difference / 1000);
+        const hours = Math.floor(totalSeconds / 3600) % 24;
+        const minutes = Math.floor((totalSeconds / 60) % 60);
+        const seconds = Math.floor(totalSeconds % 60);
 
-        setCountdown({ days, hours, minutes });
+        setCountdown({ hours, minutes, seconds });
       }
     }, 1000);
 
@@ -33,11 +35,17 @@ const Countdown = () => {
 
   return (
     <div className={"countDownTimer"}>
-      {countdown.days === 0 && countdown.hours === 0 && countdown.minutes === 0 ? (
-        <p>Event is live!!</p>
+      {countdown.hours === 0 && countdown.minutes === 0 && countdown.seconds === 0 ? (
+        <>
+          <p>Event is live!!</p>
+          <div className={"btn btn-primary"}>
+            <button><Link to={"/boulders"}>Climb now!</Link></button>
+          </div>
+        </>
+
       ) : (
         <p>
-          Event starts in: {countdown.days}:{countdown.hours}:{countdown.minutes}
+          Event starts in {countdown.hours}:{countdown.minutes}:{countdown.seconds}
         </p>
       )}
     </div>

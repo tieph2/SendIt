@@ -2,7 +2,8 @@ import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import { SOFT_DELETABLE_FILTER } from "mikro-orm-soft-delete";
 import { User, UserRole } from "../db/entities/User.js";
 import { ICreateUsersBody, IUpdateUsersBody } from "../types.js";
-import bcrypt from "bcrypt";
+import { UploadFileToMinio } from "../plugins/minio.js";
+import "fastify-auth0-verify"
 
 export function UserRoutesInit(app: FastifyInstance) {
 	// Route that returns all users, soft deleted and not
@@ -20,6 +21,26 @@ export function UserRoutesInit(app: FastifyInstance) {
 		}
 	});
 
+	app.get("/user",
+		{ onRequest: [app.auth]},
+		async (req, reply) => {
+		try {
+			const token = await req.jwtVerify();
+			//@ts-ignore
+			const email = token.email;
+			console.log(email);
+
+			const theUser = await req.em.find(User, {email});
+			reply.send(theUser);
+		} catch (err) {
+			reply.status(500).send(err);
+		}
+	});
+
+
+
+
+
 	// Route that returns all judges
 	app.get("/users/judges", async (req, reply) => {
 		try {
@@ -30,35 +51,13 @@ export function UserRoutesInit(app: FastifyInstance) {
 		}
 	});
 
-	// User CRUD
-	// Refactor note - We DO use email still for creation!  We can't know the ID yet
-	app.post<{ Body: ICreateUsersBody }>("/users", async (req, reply) => {
-		const { name, email, password, skill_level } = req.body;
-
-		try {
-			const newUser = await req.em.create(User, {
-				name,
-				email,
-				password,
-				skill_level,
-				// We'll only create Admins manually!
-				role: UserRole.USER,
-			});
-
-			await req.em.flush();
-			return reply.send(newUser);
-		} catch (err) {
-			return reply.status(500).send({ message: err.message });
-		}
-	});
-
 	//READ
 	app.search("/users", async (req, reply) => {
-		const { id } = req.body;
+		const { email } = req.body;
 
 		try {
-			const theUser = await req.em.findOneOrFail(User, id, { strict: true });
-			reply.send(theUser);
+			const theUser = await req.em.findOneOrFail(User, {email: email});
+			reply.send(theUser.id);
 		} catch (err) {
 			reply.status(500).send(err);
 		}
@@ -112,31 +111,33 @@ export function UserRoutesInit(app: FastifyInstance) {
 			}
 		}
 	);
-	app.post<{
-		Body: {
-			email: string,
-			password: string,
-		}
-	}>("/login", async (req, reply) => {
-		const { email, password } = req.body;
+
+	app.post<{ Body: ICreateUsersBody }>("/users", async (req, reply) => {
 
 		try {
-			const theUser = await req.em.findOneOrFail(User, {email}, { strict: true });
+			const data = await req.file();
 
-			const hashCompare = await bcrypt.compare(password, theUser.password);
-			if (hashCompare) {
-				const userId = theUser.id;
-				const token = app.jwt.sign({ userId });
 
-				reply.send({ token });
-			} else {
-				app.log.info(`Password validation failed -- ${password} vs ${theUser.password}`);
-				reply.status(401)
-					.send("Incorrect Password");
-			}
+			const body = Object.fromEntries(
+				// @ts-ignore
+				Object.keys(data.fields).map( (key) => [key, data.fields[key].value])
+			);
+			const { email, name, skill_level } = body;
+			await UploadFileToMinio(data);
+
+			const newUser = await req.em.create(User, {
+				name,
+				email,
+				skill_level,
+				imgUri: data.filename,
+				// We'll only create Admins manually!
+				role: UserRole.USER
+			});
+
+			await req.em.flush();
+			return reply.send(newUser);
 		} catch (err) {
-			reply.status(500)
-				.send(err);
+			return reply.status(500).send({ message: err.message });
 		}
 	});
 
