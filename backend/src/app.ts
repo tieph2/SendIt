@@ -1,4 +1,4 @@
-import Fastify, { FastifyReply, FastifyRequest } from "fastify";
+import Fastify from "fastify";
 import multipart from "@fastify/multipart";
 import config from "./db/mikro-orm.config.js";
 import cors from '@fastify/cors'

@@ -1,5 +1,5 @@
 import { httpClient } from "@/Services/HttpClient.tsx";
-import { createContext, useContext, useState } from "react";
+import { createContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 export const AuthContext = createContext<AuthContextProps | null>(null);

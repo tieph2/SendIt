@@ -1,4 +1,3 @@
-import { Boulder } from "./db/entities/Boulder";
 
 export type ICreateUsersBody = {
 	email: string;
