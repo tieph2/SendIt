@@ -30,6 +30,10 @@ h1, h2, h3, h4, h5 {
     line-height: 1.0;
 }
 
+h2 {
+    font-size: 1.25em;
+}
+
 h4 {
     font-size: .75em;
 }
@@ -69,7 +73,7 @@ a {
 
 .container {
     margin: 2em auto;
-    max-width: 80%;
+    max-width: 90%;
 }
 
 .homePage {
@@ -108,6 +112,10 @@ a {
     padding: 1em 0;
     color: white;
     background: #011c2b;
+}
+
+.boulderPage {
+    align-self:start;
 }
 
 .createBoulderPage {
@@ -149,4 +157,7 @@ a {
 
 .card-body {
     padding: 1em;
+}
+
+.card {
 }

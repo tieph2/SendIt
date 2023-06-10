@@ -11,25 +11,6 @@ import { ICreateAttemptBody, IUpdateAttemptBody } from "../types";
  * @constructor
  */
 export function AttemptRouteInit(app: FastifyInstance) {
-	/////////////////////////////////////////////////////////////////////////////
-	// HOMEWORK 1
-	/////////////////////////////////////////////////////////////////////////////
-
-	/* This is where we have to be careful with the difference in a full entity
-   vs a reference.  References are a Mikro-orm optimization that lets us avoid database
-   queries when all we need from something is its id.  That is the case here:
-   we only *need* references to these Users, not their entire data.  We don't actually care
-   about any of their data except their ID, so we would like to use references here.
-   Unfortunately, we're currently tracking users by their email address, not their database id!
-
-   This is a situation where you have a choice to make.  Either we refactor a bit
-   now to start using `id` everywhere rather than email address (since THAT is the field
-   that links tables together in our database, not email...or we give up forever
-   on enabling LOTS of optimizations.  My personal choice is to refactor, so
-   the final code solution I merge into our official Doggr repo will be one
-   that fixes this problem.  We'll do it the simpler way for this solution
-   and take what we need from the database at any cost.
-   */
 
 	// Route that returns all users who ARE NOT SOFT DELETED
 	app.get("/attempts", async (req, reply) => {
@@ -40,6 +21,61 @@ export function AttemptRouteInit(app: FastifyInstance) {
 			reply.status(500).send(err);
 		}
 	});
+
+// Fastify route handler
+	app.get('/ranking', async (req, reply) => {
+		try {
+			const successfulAttempts = await req.em.find(Attempt, { successful: true });
+
+			// Group the attempts by climber_id
+			//@ts-ignore
+			const attemptsByClimber = successfulAttempts.reduce((acc, attempt) => {
+				//@ts-ignore
+				if (!acc[attempt.climber]) {
+					//@ts-ignore
+					acc[attempt.climber] = [];
+				}
+				//@ts-ignore
+				acc[attempt.climber].push(attempt);
+				return acc;
+			}, {});
+
+			const result = {};
+
+
+			for (const attempt of attemptsByClimber['[object Object]']) {
+				const user_id = attempt.climber.id;
+				const theUser =  await req.em.findOne(User, user_id);
+				let userInfo = {
+					id: theUser.id,
+					name: theUser.name,
+					uri: theUser.imgUri,
+					score: 0
+				}
+
+				result[user_id] = userInfo;
+			}
+
+			for (const attempt of attemptsByClimber['[object Object]']) {
+				const boulder_id = attempt.boulder.id;
+				const theBoulder = await req.em.findOne(Boulder, boulder_id);
+				const score = theBoulder.score;
+				result[attempt.climber.id].score += score;
+			}
+
+			const res = Object.values(result);
+			//@ts-ignore
+			const res_sorted = res.sort((a,b) => b.score - a.score);
+
+			//@ts-ignore
+			const sorted_result = Object.entries (result).sort((a,b)=> b[1] - a[1]);
+			reply.send(res_sorted);
+		} catch (error) {
+			reply.status(500).send('An error occurred while processing the request.');
+		}
+	});
+
+
 
 	//Create an attempt between a climber and a boulder
 	app.post<{ Body: ICreateAttemptBody }>("/attempts", async (req, reply) => {
@@ -56,7 +92,7 @@ export function AttemptRouteInit(app: FastifyInstance) {
 			const newAttempt = await req.em.create(Attempt, {
 				climber: climber,
 				boulder: boulder,
-				count: 0,
+				count: 1,
 				successful: successful,
 			});
 			// Send our changes to the database

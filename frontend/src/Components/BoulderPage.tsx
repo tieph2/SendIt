@@ -8,6 +8,7 @@ import {
 } from "@/Services/HttpClient.tsx";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Ranking } from "@/Components/Ranking.tsx";
 
 
 export const BoulderPage = () => {
@@ -63,8 +64,6 @@ export const BoulderPage = () => {
     });
   });
 
-
-
   const fetchBoulders = () => {
     getBouldersFromServer()
       .then((response) => setBoulders(response))
@@ -77,8 +76,9 @@ export const BoulderPage = () => {
 
 
   return (
-    <div className="container">
-      <div className={"BoulderPage flex flex-row flex-wrap"}>
+    <div className="container flex flex-row">
+
+      <div className={"boulderPage flex flex-row flex-wrap lg:w-5/6 md:w-2/3"}>
       {
         boulders.map((item) => {
           return <BoulderCard
@@ -89,6 +89,7 @@ export const BoulderPage = () => {
         })
       }
       </div>
+      <Ranking/>
     </div>
 
   );

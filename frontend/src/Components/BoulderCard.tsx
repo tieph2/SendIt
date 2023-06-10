@@ -21,7 +21,7 @@ export function BoulderCard(props: BoulderType & {user_id}) {
 
 
   return (
-    <div className="card lg:w-1/4 m-4 md:w-1/3 bg-base-100 shadow-xl mt-6">
+    <div className="card  m-4 bg-base-100 shadow-xl mt-6">
       <figure className="cardImageContainer">
         <img src={minioUrl}
              alt="Shoes"

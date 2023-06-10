@@ -42,7 +42,7 @@ export class BoulderSeeder extends Seeder {
 		context.boulder1 = em.create(Boulder, {
 			zone: 1,
 			color: "red",
-			score: 1000,
+			score: 500,
 			grade: 1,
 			note: "Climbers can't use wall features",
 			imgUri: "boulder1.jpg"
@@ -50,7 +50,7 @@ export class BoulderSeeder extends Seeder {
 		context.boulder2 = em.create(Boulder, {
 			zone: 4,
 			color: "blue",
-			score: 1500,
+			score: 1000,
 			grade: 6,
 			note: "Dyno move at the start",
 			imgUri: "boulder2.jpg"
@@ -58,7 +58,7 @@ export class BoulderSeeder extends Seeder {
 		context.boulder3 = em.create(Boulder, {
 			zone: 2,
 			color: "red",
-			score: 1000,
+			score: 1500,
 			grade: 3,
 			note: "Bat-hang",
 			imgUri: "boulder3.jpg"
@@ -66,7 +66,7 @@ export class BoulderSeeder extends Seeder {
 		context.boulder4 = em.create(Boulder, {
 			zone: 1,
 			color: "blue",
-			score: 1000,
+			score: 2000,
 			grade: 12,
 			note: "Bat-hang",
 			imgUri: "boulder3.jpg"

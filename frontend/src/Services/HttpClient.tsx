@@ -22,6 +22,14 @@ export async function getBouldersFromServer() {
 }
 
 
+export async function getRankingFromServer() {
+	const ranking =
+		await httpClient.get("/ranking");
+	return ranking.data;
+}
+
+
+
 
 
 

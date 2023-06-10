@@ -5,6 +5,7 @@ import { PassService } from "@/Services/PassService.tsx";
 import { Dequeue } from "@/Services/QueueService.tsx";
 import {  useEffect, useState } from "react";
 import { CurrentRegistration } from "@/Components/CurrentRegistration.tsx";
+import { UpdateAttempt } from "@/Services/ScoreService.tsx";
 
 export const Judge = () => {
   const [currentRegistration, setCurrentRegistration] = useState<RegistrationType>();
@@ -26,28 +27,32 @@ export const Judge = () => {
   });
 
   const onPassButtonClick = () => {
+    UpdateAttempt.send(currentRegistration.id, currentRegistration.boulder_id, true)
+      .catch(err => {
+        console.error(err);
+      });
     PassService.send(currentRegistration.id, currentRegistration.boulder_id)
-      .then(fetchRegistration)
       .catch(err => {
         console.log("Error passing climber");
         console.error(err);
-        fetchRegistration();
       });
     Dequeue.send(currentRegistration.id, currentRegistration.boulder_id)
-      .then(fetchRegistration)
       .catch(err => {
         console.error(err);
-        fetchRegistration();
       });
+    fetchRegistration();
   };
 
   const onFailButtonClick = () => {
-    Dequeue.send(currentRegistration.id, currentRegistration.boulder_id)
-      .then(fetchRegistration)
+    UpdateAttempt.send(currentRegistration.id, currentRegistration.boulder_id, false)
       .catch(err => {
         console.error(err);
-        fetchRegistration();
       });
+    Dequeue.send(currentRegistration.id, currentRegistration.boulder_id)
+      .catch(err => {
+        console.error(err);
+      });
+    fetchRegistration();
   };
 
 
