@@ -2,7 +2,7 @@
 import { BoulderCard } from "@/Components/BoulderCard.tsx";
 import { useAuth0 } from "@auth0/auth0-react";
 import {
-  getBouldersFromServer,
+  getBouldersFromServer, getIdFromServer,
   httpClient,
   serverUrl
 } from "@/Services/HttpClient.tsx";
@@ -19,50 +19,32 @@ export const BoulderPage = () => {
   const [token, setToken] = useState("");
   const [userId, setUserId] = useState();
 
-  const getIdFromServer = {
-    async send(email: string) {
-      const getIdConfig = {
-        method: 'search',  // Specify your method here
-        url: serverUrl + "/users",
-        crossDomain: true,
-        data: {"email": email}
-      };
-      const id = await httpClient.request(getIdConfig);
-      return id.data;
-    }
-  };
+  // const getIdFromServer = {
+  //   async send(email: string) {
+  //     const getIdConfig = {
+  //       method: 'search',  // Specify your method here
+  //       url: serverUrl + "/users",
+  //       crossDomain: true,
+  //       data: {"email": email}
+  //     };
+  //     const id = await httpClient.request(getIdConfig);
+  //     return id.data;
+  //   }
+  // };
 
-  // useEffect(() => {
-  //   const getToken = async () => {
-  //     const token = await getAccessTokenSilently();
-  //     // console.log("Trying to get access token");
-  //     // const accessToken = await getAccessTokenSilently({
-  //     //   authorizationParams: {
-  //     //     audience: "http://localhost:8080",
-  //     //     scope: "boulders users",
-  //     //   },
-  //     // });
-  //     // console.log("Got access token");
-  //     return token;
-  //   };
-  //
-  //   getToken().then((value) => {
-  //     setToken(value);
-  //     console.log(token);
-  //     console.log(user);
-  //   });
   // });
 
   useEffect(() => {
     const getId = async () => {
-      const id = await getIdFromServer.send(user.email);
+      const id = await getIdFromServer();
       return id;
     };
 
     getId().then((value) => {
+      console.log(`id is ${value}`);
       setUserId(value);
     });
-  });
+  }, []);
 
   const fetchBoulders = () => {
     getBouldersFromServer()

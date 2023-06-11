@@ -28,7 +28,11 @@ export function NavBar() {
             ?
               <>
                 <li>
-                  <img className={"avatar-sm"} src={user.picture} alt={"Your profile picture"}/>
+                  <div className={"avatar-sm"}
+                       style={{
+                         backgroundImage: `url(${user.picture}`,
+
+                  }}></div>
                   <LogoutButton/></li>
               </>
             :

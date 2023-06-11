@@ -27,8 +27,7 @@ export function UserRoutesInit(app: FastifyInstance) {
 		try {
 			const token = await req.jwtVerify();
 			//@ts-ignore
-			const email = token.email;
-			console.log(email);
+			const email = token['https://www.archivalight.com/email'];
 
 			const theUser = await req.em.find(User, {email});
 			reply.send(theUser);

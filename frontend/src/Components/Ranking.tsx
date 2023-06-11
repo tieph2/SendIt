@@ -18,7 +18,6 @@ export const Ranking = () => {
 
   useEffect(() => {
     fetchRanking();
-    console.log(ranking);
   }, []);
 
 

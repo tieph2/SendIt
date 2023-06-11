@@ -14,7 +14,6 @@ export const httpClient = axios.create({
 });
 
 
-
 export async function getBouldersFromServer() {
 	const boulders =
 		await httpClient.get("/boulders");
@@ -27,6 +26,14 @@ export async function getRankingFromServer() {
 		await httpClient.get("/ranking");
 	return ranking.data;
 }
+
+
+export async function getIdFromServer() {
+	const id =
+		await httpClient.get("/user");
+	return id.data;
+}
+
 
 
 

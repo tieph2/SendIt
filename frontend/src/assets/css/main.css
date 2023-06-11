@@ -1,6 +1,8 @@
 @import "reset.css";
 @tailwind components;
 @tailwind utilities;
+@tailwind themes;
+@tailwind base;
 
 @font-face {
     font-family: "Blogh";
@@ -138,6 +140,7 @@ a {
     width: 32px;
     height:32px;
     border-radius: 50%;
+    background-size: contain;
 }
 
 .boulder-bg {

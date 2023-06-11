@@ -1,13 +1,13 @@
 import { BoulderType, Color } from "@/SenditTypes.ts";
 import { Queue } from "@/Components/Queue.tsx";
 import { Dequeue, EnQueue } from "@/Services/QueueService.tsx";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AuthContext } from "@/Services/Auth.tsx";
 
 export function BoulderCard(props: BoulderType & {user_id}) {
   const { id, imgUri,zone, color,score, grade,note} = props;
   const user_id = props.user_id;
   const [inLine, setInLine] = useState(false);
-
   const minioUrl = `http://localhost:9000/sendit/${imgUri}`;
 
   const onRegisterButtonClick = () => {
@@ -53,13 +53,15 @@ export function BoulderCard(props: BoulderType & {user_id}) {
         <Queue
           boulder_id = {id}
         />
-
-        <div className="card-actions justify-start">
+        { user_id ? <div className="card-actions justify-start">
           <button
             className="btn btn-primary"
             onClick={onRegisterButtonClick}
           >Climb</button>
-        </div>
+        </div> : null
+
+        }
+
 
       </div>
 

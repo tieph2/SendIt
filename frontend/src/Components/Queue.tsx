@@ -27,7 +27,7 @@ export const Queue = (props : {boulder_id}) => {
   useEffect(() => {
     const interval = setInterval(() => {
       setTime(new Date());
-      console.log("Queue refreshed");
+      //console.log("Queue refreshed");
     }, 1000);
 
     return () => clearInterval(interval);

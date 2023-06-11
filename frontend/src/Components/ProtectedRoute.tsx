@@ -14,7 +14,7 @@ export const ProtectedRoute = ({children}) => {
 
 		getToken().then((value) => {
 			setToken(value);
-			console.log(token);
+			console.log(value);
 		});
 	});
 
