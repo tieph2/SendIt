@@ -66,3 +66,9 @@ I got the microservice to compose with docker. However, I ran into the same prob
 +Started prepping the project for submission.
 
 6/14 Project submitted.
+
+Link to video: 
+https://youtu.be/SdnaOj7eTfg
+
+Link to github repo:
+https://github.com/tieph2/SendIt
