@@ -1,0 +1,19 @@
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ.get('POSTGRES_NAME'),
+        'USER': os.environ.get('POSTGRES_USER'),
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
+        'HOST': os.environ.get('POSTGRES_HOST'),
+        'PORT': os.environ.get('POSTGRES_PORT'),
+    }
+}
+
+
+in root dir:
+sudo docker compose run python_backend django-admin startproject JudgeService ./python_backend
+sudo chown -R $USER:$USER JudgeService manage.py
+
+
+in Judgeservice dir:
+python3 manage.py runserver 0.0.0.0:8000      starts server
