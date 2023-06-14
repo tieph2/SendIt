@@ -1,0 +1,68 @@
+Send it journal:
+
+4/24
+1. I just started work on the project this week. The doggr project is a great jumping-off point, and the homework helped me understand things a great deal. 
+
+5/4
++Creating entities for my database, which includes a user table, and a boulder table for the competition problem. 
+
+5/6
+I created a joined table between the user and the boulder table to track the attempt of a climber on a boulder problem. I may need to include another table that is very similar to the registration table to be used as a queue during the competition.
+
+5/19
+Today I worked on creating an entity and seeder for the attempt table.
+
+5/21
+Finished all the entities and seeders, all pretty similar to doggr. Moving on to the routes.
+
+5/22
+Created a basic framework for Sendit front end based on dogger's.
+
+5/25 Today, I started working on transitioning from doggr authentication to auth0. Auth0 has great documentation and website:
+-Created auth0 account and application
+-Configured application to match with project's info.
+
+5/27 Working on a context provider class inside Auth0Provider to provide additional user information from the Postgres database.
+Minor tasks include a few new routes in the Router component.
+
+6/1
+Created a boulder page component to display all the boulder in the database.
+Basic information only. Future plans:
++Queue system: display climbers in the queue.
++A 'Climb' button so climbers can queue up for a boulder problem.
++Potential feature: real-time ranking.
+
+6/2
+Restructured the project directory and got rid of other doggr reference to match with Sendit.
+
+6/3
+Added a boulder creation page for users with the 'Judge' role.
+Add image seeds for the backend.
+Add styling to the Boulder Card component inside Boulder Page.
+
+6/4
+Today I worked on adding action to auth0 to generate user's information for the token.
+Changed authorization params in AuthProvider to point to the right host, in order to generate tokens that the backend can decode.
+
+6/5
+A Queue entity is created to keep track of registration between climbers and boulders. Routes to add and remove entries to the database were also added. Created React component to use said queue system.
+
+6/6 Today I ran into a hiccup with the virtual machine where it lost connection to the Internet. Restarting the VM and the host pc doesn't fix, so I had to copied my working repository to a thumb drive, and reset the VM.
+
+6/7 CSS styling applied to components. Encountered issues where the tailwind styles get overridden, which turns out to be a problem with the browser extension.
+
+6/8 Started fine-tuning the auth0 implementation. I struggled with auth0 today. I couldn't figure out why calling to function to get token doesn't work on my Authentication wrapper component, despiting working other components.
+
+6/9 Created profile editing based on Doggr's. Started ranking implementation.
+
+6/10 
+Today, I started working on the microservice as part of the project requirement for grad students. My plan is to use Rust as the language of choice and modify the existing doggr code to add routes relevant to my database.
+
+6/11
+My plan didn't work due to my lack of understanding of Rust. So I decided to switch to Python. I decided to go with the Django framework. The initial learning process was harder than expected. With help from a fellow classmate, I managed to get the basic project structure.
+
+6/13
+I got the microservice to compose with docker. However, I ran into the same problem that's been plaguing my front-end with the Python back end. (CORS) After some research, I found out that I can use the python package cors-header. 
++Started prepping the project for submission.
+
+6/14 Project submitted.
