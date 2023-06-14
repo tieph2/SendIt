@@ -1,12 +1,30 @@
 import landing from "../assets/images/landing.jpg";
 import { Link } from "react-router-dom";
 import { useAuth } from "@/Services/Auth.tsx";
-import { getIdFromServer } from "@/Services/HttpClient.tsx";
+import {
+	getIdFromServer,
+	getJudgesFromServer
+} from "@/Services/HttpClient.tsx";
 import { useEffect, useState } from "react";
 
 export const Home = () => {
+	const minioUrl = "http://localhost:9000/sendit/";
+	const [judges, setJudges] = useState([])
 	const { getTokenAndInjectHeader } = useAuth();
 	const [registered, setRegistered] = useState(false);
+
+	const fetchJudges = () => {
+		getJudgesFromServer()
+			.then((response) => setJudges(response))
+			.catch((err) => console.log("Error in fetch judges", err));
+	};
+
+	useEffect(() => {
+		fetchJudges();
+		console.log(judges);
+	}, []);
+
+
 
 	useEffect(() => {
 		const checkRegistered = async () => {
@@ -39,6 +57,24 @@ export const Home = () => {
 							<Link to={"/profile/edit"}>
 								<div className={"btn btn-primary blue"}>Register Now</div>
 							</Link>
+
+							<div className={"JudgeList"}>
+								<h2 className={"mb-4"}> Judge list</h2>
+
+								{judges.map((judge) => {
+									return (
+										<div className={"flex"}>
+											<img
+												className={"avatar-sm mr-4"}
+												src={minioUrl + judge.img_uri}
+												alt={`Judge ${judge.name} profile pic`}
+											/>
+											<p>{judge.name}</p>
+										</div>
+									);
+								})}
+							</div>
+
 						</>
 					)}
 				</div>
