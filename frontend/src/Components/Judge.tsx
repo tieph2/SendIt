@@ -115,7 +115,7 @@ export const Judge = () => {
       }
 
       <div className={"JudgeList"}>
-          <h2 className={"mb-4"}> Judges</h2>
+          <h2 className={"mb-4"}> Judge list</h2>
 
           {
             judges.map((judge) => {

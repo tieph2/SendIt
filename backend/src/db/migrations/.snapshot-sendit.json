@@ -222,16 +222,6 @@
           "nullable": false,
           "mappedType": "integer"
         },
-        "password": {
-          "name": "password",
-          "type": "varchar(255)",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "default": "'password'",
-          "mappedType": "string"
-        },
         "role": {
           "name": "role",
           "type": "text",

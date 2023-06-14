@@ -76,18 +76,15 @@ export function UserRoutesInit(app: FastifyInstance) {
 	});
 
 	// DELETE
-	app.delete<{ Body: { my_id: number; id_to_delete: number; password: string } }>(
+	app.delete<{ Body: { my_id: number; id_to_delete: number;} }>(
 		"/users",
 		async (req, reply) => {
-			const { my_id, id_to_delete, password } = req.body;
+			const { my_id, id_to_delete } = req.body;
 
 			try {
 				// Authenticate my user's role
 				const me = await req.em.findOneOrFail(User, my_id, { strict: true });
-				// Check passwords match
-				if (me.password !== password) {
-					return reply.status(401).send();
-				}
+
 
 				// Make sure the requester is an Admin
 				if (me.role === UserRole.USER) {

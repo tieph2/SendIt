@@ -25,9 +25,6 @@ export class User extends SenditBaseEntity {
 	@Property()
 	skill_level: number;
 
-	@Property()
-	password: string = "password";
-
 	@Enum(() => UserRole)
 	role!: UserRole; // string enum
 

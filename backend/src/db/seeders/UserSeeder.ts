@@ -69,7 +69,6 @@ export class UserSeeder extends Seeder {
 			email: "email@email.com",
 			skill_level: 3,
 			role: UserRole.JUDGE,
-			password: "admin",
 			imgUri: "dog.jpg"
 		});
 		context.user2 = em.create(User, {
