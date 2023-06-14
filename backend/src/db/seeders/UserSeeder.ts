@@ -15,47 +15,52 @@ export class UserSeeder extends Seeder {
 		const __parentdir = path.dirname(__dirname);
 		const __granddir = path.dirname(__parentdir);
 
-		const image1 = await fs.readFile(path.resolve(__granddir, 'assets/images', `dog.jpg`))
-			.catch( err => {
+		const image1 = await fs
+			.readFile(path.resolve(__granddir, "assets/images", `dog.jpg`))
+			.catch((err) => {
 				console.error(err);
 			});
-		const image2 = await fs.readFile(path.resolve(__granddir, 'assets/images', `cat.jpg`))
-			.catch( err => {
+		const image2 = await fs
+			.readFile(path.resolve(__granddir, "assets/images", `cat.jpg`))
+			.catch((err) => {
 				console.error(err);
 			});
-		const image3 = await fs.readFile(path.resolve(__granddir, 'assets/images', `sam.jpg`))
-			.catch( err => {
+		const image3 = await fs
+			.readFile(path.resolve(__granddir, "assets/images", `sam.jpg`))
+			.catch((err) => {
 				console.error(err);
 			});
-		const image4 = await fs.readFile(path.resolve(__granddir, 'assets/images', `hedgehog.png`))
-			.catch( err => {
+		const image4 = await fs
+			.readFile(path.resolve(__granddir, "assets/images", `hedgehog.png`))
+			.catch((err) => {
 				console.error(err);
 			});
-		const image5 = await fs.readFile(path.resolve(__granddir, 'assets/images', `pup.jpg`))
-			.catch( err => {
+		const image5 = await fs
+			.readFile(path.resolve(__granddir, "assets/images", `pup.jpg`))
+			.catch((err) => {
 				console.error(err);
 			});
 
 		const file1 = {
 			file: image1,
-			filename: `dog.jpg`
-		}
+			filename: `dog.jpg`,
+		};
 		const file2 = {
 			file: image2,
-			filename: `cat.jpg`
-		}
+			filename: `cat.jpg`,
+		};
 		const file3 = {
 			file: image3,
-			filename: `hedgehog.png`
-		}
+			filename: `hedgehog.png`,
+		};
 		const file4 = {
 			file: image4,
-			filename: `sam.jpg`
-		}
+			filename: `sam.jpg`,
+		};
 		const file5 = {
 			file: image5,
-			filename: `pup.jpg`
-		}
+			filename: `pup.jpg`,
+		};
 
 		await UploadFileToMinio(file1);
 		await UploadFileToMinio(file2);
@@ -63,20 +68,19 @@ export class UserSeeder extends Seeder {
 		await UploadFileToMinio(file4);
 		await UploadFileToMinio(file5);
 
-
 		context.user1 = em.create(User, {
 			name: "Jase",
 			email: "email@email.com",
 			skill_level: 3,
 			role: UserRole.JUDGE,
-			imgUri: "dog.jpg"
+			imgUri: "dog.jpg",
 		});
 		context.user2 = em.create(User, {
 			name: "Chase",
 			email: "email2@email.com",
 			skill_level: 5,
 			role: UserRole.USER,
-			imgUri: "cat.jpg"
+			imgUri: "cat.jpg",
 		});
 
 		context.user3 = em.create(User, {
@@ -84,7 +88,7 @@ export class UserSeeder extends Seeder {
 			email: "email3@email.com",
 			skill_level: 16,
 			role: UserRole.USER,
-			imgUri: "pup.jpg"
+			imgUri: "pup.jpg",
 		});
 
 		context.user4 = em.create(User, {
@@ -92,14 +96,14 @@ export class UserSeeder extends Seeder {
 			email: "email4@email.com",
 			skill_level: 10,
 			role: UserRole.USER,
-			imgUri: "hedgehog.png"
+			imgUri: "hedgehog.png",
 		});
 		context.user5 = em.create(User, {
 			name: "Tabitha",
 			email: "email5@email.com",
 			skill_level: 100,
 			role: UserRole.USER,
-			imgUri: "sam.jpg"
+			imgUri: "sam.jpg",
 		});
 	}
 }

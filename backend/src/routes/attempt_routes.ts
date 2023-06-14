@@ -4,14 +4,12 @@ import { User } from "../db/entities/User.js";
 import { Boulder } from "../db/entities/Boulder.js";
 import { ICreateAttemptBody, IUpdateAttemptBody } from "../types";
 
-
 /** This function creates all the backend routes for climbing attempts by climbers
  *
  * @param {FastifyInstance} app
  * @constructor
  */
 export function AttemptRouteInit(app: FastifyInstance) {
-
 	// Route that returns all users who ARE NOT SOFT DELETED
 	app.get("/attempts", async (req, reply) => {
 		try {
@@ -22,8 +20,8 @@ export function AttemptRouteInit(app: FastifyInstance) {
 		}
 	});
 
-// Fastify route handler
-	app.get('/ranking', async (req, reply) => {
+	// Fastify route handler
+	app.get("/ranking", async (req, reply) => {
 		try {
 			const successfulAttempts = await req.em.find(Attempt, { successful: true });
 
@@ -42,21 +40,20 @@ export function AttemptRouteInit(app: FastifyInstance) {
 
 			const result = {};
 
-
-			for (const attempt of attemptsByClimber['[object Object]']) {
+			for (const attempt of attemptsByClimber["[object Object]"]) {
 				const user_id = attempt.climber.id;
-				const theUser =  await req.em.findOne(User, user_id);
+				const theUser = await req.em.findOne(User, user_id);
 				let userInfo = {
 					id: theUser.id,
 					name: theUser.name,
 					uri: theUser.imgUri,
-					score: 0
-				}
+					score: 0,
+				};
 
 				result[user_id] = userInfo;
 			}
 
-			for (const attempt of attemptsByClimber['[object Object]']) {
+			for (const attempt of attemptsByClimber["[object Object]"]) {
 				const boulder_id = attempt.boulder.id;
 				const theBoulder = await req.em.findOne(Boulder, boulder_id);
 				const score = theBoulder.score;
@@ -65,17 +62,15 @@ export function AttemptRouteInit(app: FastifyInstance) {
 
 			const res = Object.values(result);
 			//@ts-ignore
-			const res_sorted = res.sort((a,b) => b.score - a.score);
+			const res_sorted = res.sort((a, b) => b.score - a.score);
 
 			//@ts-ignore
-			const sorted_result = Object.entries (result).sort((a,b)=> b[1] - a[1]);
+			const sorted_result = Object.entries(result).sort((a, b) => b[1] - a[1]);
 			reply.send(res_sorted);
 		} catch (error) {
-			reply.status(500).send('An error occurred while processing the request.');
+			reply.status(500).send("An error occurred while processing the request.");
 		}
 	});
-
-
 
 	//Create an attempt between a climber and a boulder
 	app.post<{ Body: ICreateAttemptBody }>("/attempts", async (req, reply) => {
@@ -137,14 +132,12 @@ export function AttemptRouteInit(app: FastifyInstance) {
 		if (attemptToChange) {
 			attemptToChange.successful = successful;
 			attemptToChange.count++;
-		}
-		else {
+		} else {
 			await req.em.create(Attempt, newAttempt);
 		}
 
-
 		// Reminder -- this is how we persist our JS object changes to the database itself
 		await req.em.flush();
-		reply.send(attemptToChange? attemptToChange : newAttempt);
+		reply.send(attemptToChange ? attemptToChange : newAttempt);
 	});
 }

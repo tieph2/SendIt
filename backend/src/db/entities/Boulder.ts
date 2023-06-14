@@ -1,12 +1,6 @@
 import {
-	Collection,
 	Entity,
-	EntitySchema,
-	OneToMany,
-	PrimaryKey,
-	Property,
-	Unique,
-	Cascade,
+	Property
 } from "@mikro-orm/core";
 import { SenditBaseEntity } from "./SenditBaseEntity.js";
 
@@ -27,7 +21,6 @@ export class Boulder extends SenditBaseEntity {
 	@Property()
 	note: string;
 
-	@Property({fieldName: 'img_uri'})
+	@Property({ fieldName: "img_uri" })
 	imgUri!: string;
-
 }

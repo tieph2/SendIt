@@ -21,7 +21,7 @@ async function SenditRoutes(app: FastifyInstance, _options = {}) {
 	UserRoutesInit(app);
 	BoulderRoutesInit(app);
 	AttemptRouteInit(app);
-	RegistrationRouteInit(app)
+	RegistrationRouteInit(app);
 }
 
 export default SenditRoutes;

@@ -32,16 +32,13 @@ export function BoulderRoutesInit(app: FastifyInstance) {
    and take what we need from the database at any cost.
    */
 
-
 	app.post<{ Body: ICreateBoulderBody }>("/boulders", async (req, reply) => {
-
 		try {
 			const data = await req.file();
 
-
 			const body = Object.fromEntries(
 				// @ts-ignore
-				Object.keys(data.fields).map( (key) => [key, data.fields[key].value])
+				Object.keys(data.fields).map((key) => [key, data.fields[key].value])
 			);
 			const { zone, grade, score, color, note } = body;
 			await UploadFileToMinio(data);
@@ -76,11 +73,11 @@ export function BoulderRoutesInit(app: FastifyInstance) {
 
 	//Update a boulder problem
 	app.put<{ Body: IUpdateBoulderBody }>("/boulders", async (req, reply) => {
-		const {id, zone, color, score, grade, note } = req.body;
+		const { id, zone, color, score, grade, note } = req.body;
 
 		try {
 			const boulder = await req.em.findOneOrFail(Boulder, id, { strict: true });
-			boulder.zone = zone
+			boulder.zone = zone;
 			boulder.color = color;
 			boulder.score = score;
 			boulder.grade = grade;
@@ -93,19 +90,15 @@ export function BoulderRoutesInit(app: FastifyInstance) {
 	});
 
 	// Delete a boulder problem after checking user is a  judge
-	app.delete<{ Body: { my_id: number; boulder_id: number; password: string } }>(
+	app.delete<{ Body: { my_id: number; boulder_id: number } }>(
 		"/boulders",
 		async (req, reply) => {
-			const { my_id, boulder_id, password } = req.body;
+			const { my_id, boulder_id  } = req.body;
 
 			console.log("Print");
 			try {
 				// Authenticate my user's role
 				const me = await req.em.findOneOrFail(User, my_id, { strict: true });
-				// Check passwords match
-				if (me.password !== password) {
-					return reply.status(401).send();
-				}
 
 				// Make sure the requester is an Admin
 				if (me.role !== UserRole.JUDGE) {

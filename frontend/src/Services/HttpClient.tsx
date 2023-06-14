@@ -22,53 +22,39 @@ export const httpPythonClient = axios.create({
 	headers: {
 		"Content-type": "application/json",
 	},
-})
-
+});
 
 export async function getBouldersFromServer() {
-	const boulders =
-		await httpClient.get("/boulders");
+	const boulders = await httpClient.get("/boulders");
 	return boulders.data;
 }
 
-
 export async function getJudgesFromServer() {
-	const judges =
-		await httpPythonClient.get("/judges");
+	const judges = await httpPythonClient.get("/judges");
 	return judges.data;
 }
 
-
 export async function getRankingFromServer() {
-	const ranking =
-		await httpClient.get("/ranking");
+	const ranking = await httpClient.get("/ranking");
 	return ranking.data;
 }
 
 //Get id when token is present
 export async function getIdFromServer() {
-	const id =
-		await httpClient.get("/user");
+	const id = await httpClient.get("/user");
 	return id.data;
 }
 
-
 //Get id with only email
 export async function getIdByEmailFromServer(email) {
-
 	const get_id_config = {
-		method: 'search',  // Specify your method here
+		method: "search", // Specify your method here
 		url: serverUrl + "/users",
 		crossDomain: true,
 		data: {
-			email: email
-		}
+			email: email,
+		},
 	};
 	const id = await httpClient.request(get_id_config);
 	return id.data;
 }
-
-
-
-
-

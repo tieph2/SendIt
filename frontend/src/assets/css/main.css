@@ -5,161 +5,165 @@
 @tailwind base;
 
 @font-face {
-    font-family: "Blogh";
-    src: local("Blogh"),
-    url("../fonts/Blogh.otf") format("opentype");
-    font-weight: bold;
+	font-family: "Blogh";
+	src: local("Blogh"), url("../fonts/Blogh.otf") format("opentype");
+	font-weight: bold;
 }
 
 @font-face {
-    font-family: "Dasher";
-    src: local("Dasher"),
-    url("../fonts/Dasher.ttf") format("truetype");
-    font-weight: bold;
+	font-family: "Dasher";
+	src: local("Dasher"), url("../fonts/Dasher.ttf") format("truetype");
+	font-weight: bold;
 }
 
 figure {
-    margin: 0;
+	margin: 0;
 }
 
-
-h1, h2, h3, h4, h5, p {
-    margin: 0 0 .2em 0;
+h1,
+h2,
+h3,
+h4,
+h5,
+p {
+	margin: 0 0 0.2em 0;
 }
 
-h1, h2, h3, h4, h5 {
-    margin: 0 0 .2em 0;
-    line-height: 1.0;
+h1,
+h2,
+h3,
+h4,
+h5 {
+	margin: 0 0 0.2em 0;
+	line-height: 1;
 }
 
 h2 {
-    font-size: 1.25em;
+	font-size: 1.25em;
 }
 
 h4 {
-    font-size: .75em;
+	font-size: 0.75em;
 }
 
 p {
-    font-size: 16px;
-    line-height: 1.5;
+	font-size: 16px;
+	line-height: 1.5;
 }
 
 a {
-    text-decoration: none;
+	text-decoration: none;
 }
 
 .SenditFancy {
-    font-family: "Segoe UI", sans-serif;
-    background-color: white;
-    margin:0;
-    top:0;
-    bottom:0;
-    left:0;
-    right:0;
-    width: 100vw;
-    height: 100vh;
-    display:flex;
-    flex-direction: column;
+	font-family: "Segoe UI", sans-serif;
+	background-color: white;
+	margin: 0;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
 }
 
 .header {
-    background: #f2f4f7;
+	background: #f2f4f7;
 }
 
 .main {
-    height: 100%;
-    width: 100%;
-
+	height: 100%;
+	width: 100%;
 }
 
 .container {
-    margin: 2em auto;
-    max-width: 90%;
+	margin: 2em auto;
+	max-width: 90%;
 }
 
 .homePage {
-    height: 100%;
+	height: 100%;
 }
 
 .hero-content {
-    width: 100%;
+	width: 100%;
 }
 
 .hero-header {
-    font-family: 'Dasher', sans-serif;
-    font-size: 5em;
-    font-weight: bold;
-    color: #3191fc;
+	font-family: "Dasher", sans-serif;
+	font-size: 5em;
+	font-weight: bold;
+	color: #3191fc;
 }
 
 .hero-img {
-    background-image: url("../images/Climbers.svg");
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: right;
-    height: 600px;
-    width: 100%;
-
+	background-image: url("../images/Climbers.svg");
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: right;
+	height: 600px;
+	width: 100%;
 }
 
 .intro-image {
-    background-image: url("../images/colorful.jpg");
+	background-image: url("../images/colorful.jpg");
 }
 
 .countDownTimer {
-    width: 100%;
-    margin: auto;
-    text-align: center;
-    padding: 1em 0;
-    color: white;
-    background: #011c2b;
+	width: 100%;
+	margin: auto;
+	text-align: center;
+	padding: 1em 0;
+	color: white;
+	background: #011c2b;
 }
 
 .boulderPage {
-    align-self:start;
+	align-self: start;
 }
 
 .createBoulderPage {
-    padding: 4em;
-    background-image: url("../images/colorful.jpg");
+	padding: 4em;
+	background-image: url("../images/colorful.jpg");
 }
 
 .cardImageContainer {
-    width: 100%;
-    height: 200px;
+	width: 100%;
+	height: 200px;
 }
 
 .cardImg {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
+	height: 100%;
+	width: 100%;
+	object-fit: cover;
 }
 
 .avatar-sm {
-    width: 32px;
-    height:32px;
-    border-radius: 50%;
-    background-size: contain;
+	width: 32px;
+	height: 32px;
+	border-radius: 50%;
+	background-size: contain;
 }
 
 .boulder-bg {
-    background-size: cover;
-    background: linear-gradient(0deg, rgba(255, 0, 150, 0.3), rgba(255, 0, 150, 0.3));
-    color: white;
+	background-size: cover;
+	background: linear-gradient(0deg, rgba(255, 0, 150, 0.3), rgba(255, 0, 150, 0.3));
+	color: white;
 }
 
 .boulderColorBlock {
-    width: 50px;
-    height: 25px;
-    border-radius: 8px;
+	width: 50px;
+	height: 25px;
+	border-radius: 8px;
 }
 
 .avatar-list {
 }
 
 .card-body {
-    padding: 1em;
+	padding: 1em;
 }
 
 .card {

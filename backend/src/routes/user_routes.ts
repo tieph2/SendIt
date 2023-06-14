@@ -3,7 +3,7 @@ import { SOFT_DELETABLE_FILTER } from "mikro-orm-soft-delete";
 import { User, UserRole } from "../db/entities/User.js";
 import { ICreateUsersBody, IUpdateUsersBody } from "../types.js";
 import { UploadFileToMinio } from "../plugins/minio.js";
-import "fastify-auth0-verify"
+import "fastify-auth0-verify";
 
 export function UserRoutesInit(app: FastifyInstance) {
 	// Route that returns all users, soft deleted and not
@@ -21,24 +21,18 @@ export function UserRoutesInit(app: FastifyInstance) {
 		}
 	});
 
-	app.get("/user",
-		{ onRequest: [app.auth]},
-		async (req, reply) => {
+	app.get("/user", { onRequest: [app.auth] }, async (req, reply) => {
 		try {
 			const token = await req.jwtVerify();
 			//@ts-ignore
-			const email = token['https://www.archivalight.com/email'];
+			const email = token["https://www.archivalight.com/email"];
 
-			const theUser = await req.em.find(User, {email});
+			const theUser = await req.em.find(User, { email });
 			reply.send(theUser);
 		} catch (err) {
 			reply.status(500).send(err);
 		}
 	});
-
-
-
-
 
 	// Route that returns all judges
 	app.get("/users/judges", async (req, reply) => {
@@ -55,7 +49,7 @@ export function UserRoutesInit(app: FastifyInstance) {
 		const { email } = req.body;
 
 		try {
-			const theUser = await req.em.findOneOrFail(User, {email: email});
+			const theUser = await req.em.findOneOrFail(User, { email: email });
 			reply.send(theUser.id);
 		} catch (err) {
 			reply.status(500).send(err);
@@ -76,47 +70,41 @@ export function UserRoutesInit(app: FastifyInstance) {
 	});
 
 	// DELETE
-	app.delete<{ Body: { my_id: number; id_to_delete: number;} }>(
-		"/users",
-		async (req, reply) => {
-			const { my_id, id_to_delete } = req.body;
+	app.delete<{ Body: { my_id: number; id_to_delete: number } }>("/users", async (req, reply) => {
+		const { my_id, id_to_delete } = req.body;
 
-			try {
-				// Authenticate my user's role
-				const me = await req.em.findOneOrFail(User, my_id, { strict: true });
+		try {
+			// Authenticate my user's role
+			const me = await req.em.findOneOrFail(User, my_id, { strict: true });
 
-
-				// Make sure the requester is an Admin
-				if (me.role === UserRole.USER) {
-					return reply.status(401).send({ message: "You are not an admin!" });
-				}
-
-				const theUserToDelete = await req.em.findOneOrFail(User, id_to_delete, { strict: true });
-
-				//Make sure the to-be-deleted user isn't an admin
-				if (theUserToDelete.role === UserRole.ADMIN) {
-					return reply
-						.status(401)
-						.send({ message: "You do not have enough privileges to delete an Admin!" });
-				}
-
-				await req.em.remove(theUserToDelete).flush();
-				return reply.send(theUserToDelete);
-			} catch (err) {
-				return reply.status(500).send(err);
+			// Make sure the requester is an Admin
+			if (me.role === UserRole.USER) {
+				return reply.status(401).send({ message: "You are not an admin!" });
 			}
+
+			const theUserToDelete = await req.em.findOneOrFail(User, id_to_delete, { strict: true });
+
+			//Make sure the to-be-deleted user isn't an admin
+			if (theUserToDelete.role === UserRole.ADMIN) {
+				return reply
+					.status(401)
+					.send({ message: "You do not have enough privileges to delete an Admin!" });
+			}
+
+			await req.em.remove(theUserToDelete).flush();
+			return reply.send(theUserToDelete);
+		} catch (err) {
+			return reply.status(500).send(err);
 		}
-	);
+	});
 
 	app.post<{ Body: ICreateUsersBody }>("/users", async (req, reply) => {
-
 		try {
 			const data = await req.file();
 
-
 			const body = Object.fromEntries(
 				// @ts-ignore
-				Object.keys(data.fields).map( (key) => [key, data.fields[key].value])
+				Object.keys(data.fields).map((key) => [key, data.fields[key].value])
 			);
 			const { email, name, skill_level } = body;
 			await UploadFileToMinio(data);
@@ -127,7 +115,7 @@ export function UserRoutesInit(app: FastifyInstance) {
 				skill_level,
 				imgUri: data.filename,
 				// We'll only create Admins manually!
-				role: UserRole.USER
+				role: UserRole.USER,
 			});
 
 			await req.em.flush();
@@ -137,12 +125,11 @@ export function UserRoutesInit(app: FastifyInstance) {
 		}
 	});
 
-	app.get("/profile", async(req, reply) => {
-
+	app.get("/profile", async (req, reply) => {
 		const userRepo = req.em.getRepository(User);
 		const totalCount = await userRepo.count();
 		const randomOffset = Math.floor(Math.random() * totalCount);
-		const randomEntity = await userRepo.findOne({}, {offset: randomOffset});
+		const randomEntity = await userRepo.findOne({}, { offset: randomOffset });
 		reply.send(randomEntity);
 	});
 }

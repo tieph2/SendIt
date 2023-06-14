@@ -132,7 +132,6 @@
 //
 //
 
-
 import { getIdFromServer, httpClient } from "@/Services/HttpClient.tsx";
 import { createContext, useContext, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -171,7 +170,7 @@ if (!(initialToken == null)) {
 }
 
 export const AuthProvider = ({ children }: any) => {
-	const {getAccessTokenSilently, user} = useAuth0()
+	const { getAccessTokenSilently, user } = useAuth0();
 
 	const [token, setToken] = useState(initialToken);
 	const [userEmail, setUserEmail] = useState("");
@@ -219,11 +218,9 @@ export const useAuth = () => {
 function getTokenFromStorage() {
 	const tokenString = localStorage.getItem("token");
 
-	if ( typeof tokenString === 'undefined' || tokenString === null) {
+	if (typeof tokenString === "undefined" || tokenString === null) {
 		console.error("No token found");
 		return null;
 	}
 	return tokenString;
 }
-
-

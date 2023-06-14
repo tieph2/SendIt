@@ -7,10 +7,9 @@ export type CurrentRegistrationProps = RegistrationType & {
 };
 
 export function CurrentRegistration(props: CurrentRegistrationProps) {
-
-	const { imgUri, name, skill_level} = props;
-	const { boulder_id,boulderImgUri, zone, color, score, grade, note } = props;
-	const { onPassButtonClick, onFailButtonClick} = props;
+	const { imgUri, name, skill_level } = props;
+	const { boulder_id, boulderImgUri, zone, color, score, grade, note } = props;
+	const { onPassButtonClick, onFailButtonClick } = props;
 	const profilePicURl = "http://localhost:9000/sendit/" + imgUri;
 	const boulderPicURL = "http://localhost:9000/sendit/" + boulderImgUri;
 
@@ -33,8 +32,12 @@ export function CurrentRegistration(props: CurrentRegistrationProps) {
 						</div>
 					</div>
 					<div className={"space-x-8 my-1 flex justify-center"}>
-						<button className="btn " onClick={onPassButtonClick}>Pass</button>
-						<button className="btn " onClick={onFailButtonClick}>Fail</button>
+						<button className="btn " onClick={onPassButtonClick}>
+							Pass
+						</button>
+						<button className="btn " onClick={onFailButtonClick}>
+							Fail
+						</button>
 					</div>
 				</div>
 
@@ -44,14 +47,11 @@ export function CurrentRegistration(props: CurrentRegistrationProps) {
 				{/* Boulder Problem Profile */}
 				<div
 					className="boulder-bg md:w-1/2 md:pl-4 p-4"
-					style=
-						{
-							{
-								backgroundImage: `linear-gradient(184deg, rgba(2,0,36,1) 0%, rgba(1,6,22,0.5) 63%, rgba(3,24,59,0.5) 100%), url(${boulderPicURL})`,
-								backgroundSize: 'cover',
-								backgroundRepeat: 'no-repeat'
-							}
-						}
+					style={{
+						backgroundImage: `linear-gradient(184deg, rgba(2,0,36,1) 0%, rgba(1,6,22,0.5) 63%, rgba(3,24,59,0.5) 100%), url(${boulderPicURL})`,
+						backgroundSize: "cover",
+						backgroundRepeat: "no-repeat",
+					}}
 				>
 					<div className="flex flex-col items-center mb-4">
 						<div className={"flex flex-col gap-1"}>
@@ -59,14 +59,10 @@ export function CurrentRegistration(props: CurrentRegistrationProps) {
 							<p className=""> Color {color}</p>
 							<div
 								className={"boulderColorBlock"}
-								style=
-								{
-									{
-										backgroundColor: `${Color[color]}`
-									}
-								}
-							>
-							</div>
+								style={{
+									backgroundColor: `${Color[color]}`,
+								}}
+							></div>
 							<p className="">Score {score}</p>
 							<p className="">Grade V{grade}</p>
 							<p className="">Note: {note}</p>
@@ -74,8 +70,6 @@ export function CurrentRegistration(props: CurrentRegistrationProps) {
 					</div>
 				</div>
 			</div>
-
 		</div>
-
 	);
 }

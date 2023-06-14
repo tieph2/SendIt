@@ -2,7 +2,7 @@ import { Entity, Property, Unique, OneToMany, Collection, Cascade } from "@mikro
 import { SoftDeletable } from "mikro-orm-soft-delete";
 import { SenditBaseEntity } from "./SenditBaseEntity.js";
 import { Attempt } from "./Attempt.js";
-import { Registration } from "./Registration.js"
+import { Registration } from "./Registration.js";
 
 import { Enum } from "@mikro-orm/core";
 export enum UserRole {
@@ -28,9 +28,8 @@ export class User extends SenditBaseEntity {
 	@Enum(() => UserRole)
 	role!: UserRole; // string enum
 
-	@Property({fieldName: 'img_uri'})
+	@Property({ fieldName: "img_uri" })
 	imgUri!: string;
-
 
 	//Attempts
 	@OneToMany(() => Attempt, (attempt) => attempt.climber, {

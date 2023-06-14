@@ -1,4 +1,4 @@
-import {Client} from "minio";
+import { Client } from "minio";
 
 export const minioClient = new Client({
 	endPoint: "127.0.0.1",
@@ -6,9 +6,9 @@ export const minioClient = new Client({
 	useSSL: false,
 	accessKey: "minioUser",
 	secretKey: "minioPass",
-})
+});
 
-export const UploadFileToMinio = async(file: any): Promise<boolean> => {
+export const UploadFileToMinio = async (file: any): Promise<boolean> => {
 	let success = false;
 
 	try {
@@ -18,13 +18,13 @@ export const UploadFileToMinio = async(file: any): Promise<boolean> => {
 				success = false;
 			} else {
 				success = true;
-				console.log("Minio saved file successfully")
+				console.log("Minio saved file successfully");
 			}
-		})
+		});
 	} catch (err) {
-		success= false;
+		success = false;
 		console.error(err);
 	}
 
 	return success;
-}
+};

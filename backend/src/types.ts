@@ -1,4 +1,3 @@
-
 export type ICreateUsersBody = {
 	email: string;
 	name: string;
@@ -12,22 +11,21 @@ export type IUpdateUsersBody = {
 };
 
 export type ICreateBoulderBody = {
-	zone: number,
-	color: string,
-	score: number,
-	grade: number,
-	note: string,
+	zone: number;
+	color: string;
+	score: number;
+	grade: number;
+	note: string;
 };
 
 export type IUpdateBoulderBody = {
-	id: number,
-	zone: number,
-	color: string,
-	score: number,
-	grade: number,
-	note: string,
+	id: number;
+	zone: number;
+	color: string;
+	score: number;
+	grade: number;
+	note: string;
 };
-
 
 export type ICreateAttemptBody = {
 	climber_id: number;
@@ -40,7 +38,6 @@ export type IUpdateAttemptBody = {
 	boulder_id: number;
 	successful: boolean;
 };
-
 
 export type RegistrationBody = {
 	climber_id: number;

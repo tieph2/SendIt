@@ -1,35 +1,23 @@
 import {
-	Collection,
 	Entity,
-	EntitySchema,
-	OneToMany,
-	PrimaryKey,
 	Property,
-	Unique,
-	Cascade,
 	ManyToOne,
 } from "@mikro-orm/core";
-import type { Ref, Rel } from "@mikro-orm/core";
+import type { Ref } from "@mikro-orm/core";
 
 import { User } from "./User.js";
 import { Boulder } from "./Boulder.js";
 
 @Entity({ tableName: "attempts" })
 export class Attempt {
-	@ManyToOne(
-		() => User,
-		{
-			primary: true
-		}
-	)
+	@ManyToOne(() => User, {
+		primary: true,
+	})
 	climber!: Ref<User>;
 
-	@ManyToOne(
-		() => Boulder,
-		{
-			primary: true
-		}
-	)
+	@ManyToOne(() => Boulder, {
+		primary: true,
+	})
 	boulder!: Ref<Boulder>;
 
 	@Property()
