@@ -10,7 +10,7 @@ import { Ranking } from "@/Components/Ranking.tsx";
 export const BoulderPage = () => {
 	const [boulders, setBoulders] = useState([]);
 
-	const { user, isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
+	const { user } = useAuth0();
 	const [userId, setUserId] = useState();
 
 	useEffect(() => {

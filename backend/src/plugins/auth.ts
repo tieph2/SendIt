@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 dotenv.config();
 import { FastifyInstance, FastifyPluginOptions, FastifyReply, FastifyRequest } from "fastify";
-import Jwt, { VerifyPayloadType } from "@fastify/jwt";
+import { VerifyPayloadType } from "@fastify/jwt";
 import fp from "fastify-plugin";
 
 declare module "fastify" {
