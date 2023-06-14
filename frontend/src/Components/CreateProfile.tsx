@@ -60,7 +60,7 @@ export const CreateProfile = () => {
 	return (
 		<div className="createBoulderPage">
 			<div className="max-w-md mx-auto mt-4 p-6 bg-white rounded-md shadow-md">
-				<h2 className="text-2xl font-bold mb-6">Create a boulder problem</h2>
+				<h2 className="text-2xl font-bold mb-6">Register for the competition</h2>
 
 
 

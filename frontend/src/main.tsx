@@ -16,18 +16,6 @@ const rootContainer: HTMLElement = document.getElementById("root") as HTMLElemen
 
 ReactDOM.createRoot(rootContainer).render(
 	<React.StrictMode>
-		<Auth0Provider
-			domain={domain}
-			clientId={clientID}
-			authorizationParams={{
-				audience: audience,//dev-qkx24qj8k5y2znxf.us.auth0.com/api/v2/,
-				redirect_uri: window.location.origin,
-				scope: scope
-		}}
-		>
-			<AuthProvider>
-				<App />
-			</AuthProvider>
-		</Auth0Provider>
+		<App />
 	</React.StrictMode>
 );

@@ -4,27 +4,32 @@ import { useAuth } from "@/Services/Auth.tsx";
 import {AuthContextProps} from "@/Services/Auth.tsx";
 import { getIdFromServer } from "@/Services/HttpClient.tsx";
 import { useEffect, useState } from "react";
-import { isCSSRequest } from "vite";
+
 
 
 export const Home = () => {
-	console.log("refreshing home");
-	const auth = useAuth();
-	// const id = auth.getId();
+
+	const {getTokenAndInjectHeader} = useAuth();
 	const [registered, setRegistered] = useState(false);
 
 	useEffect(() => {
 	  const checkRegistered = async () => {
-	    const id = await getIdFromServer();
-			//@ts-ignore
-	    id ? setRegistered(true) : setRegistered(false);
-			console.log("Refreshed home component");
+			try {
+				await getTokenAndInjectHeader();
+				const id = await getIdFromServer();
+				id ? setRegistered(true) : setRegistered(false);
+				console.log("Refreshed home component");
+				return id;
+			}
+			catch (error){
+				console.error(error);
+			}
 	  };
 
-	  checkRegistered().then((value) => {
-			console.log("Email checked");
-	  });
-	});
+	  checkRegistered();
+		console.log("Registered" , registered);
+	}, [registered]);
+
 
 	return (
 		<div className="container">
@@ -38,7 +43,6 @@ export const Home = () => {
 					<p>You are registered. Have fun!</p>
 				:
 					<>
-						<p>You are not registered for the competition</p>
 						<Link to={"/profile/edit"}>
 							<div
 								className={"btn btn-primary blue"}

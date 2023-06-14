@@ -8,6 +8,8 @@ services:
       - "5432:5432"
     volumes:
       - db:/var/lib/postgresql/data
+    networks:
+      - djangonetwork
     environment:
       - POSTGRES_USER=sendit
       - POSTGRES_PASSWORD=sendit
@@ -45,6 +47,8 @@ services:
     restart: always
     ports:
       - "8080:8080"
+    networks:
+      - djangonetwork
     environment:
       - DB_HOST=postgres
       - DB_PORT=5432
@@ -74,9 +78,34 @@ services:
       - API_HOST=backend
       - PORT=8080
 
+  python_backend:
+    container_name: python_backend
+    build: ./python_backend/
+    restart: always
+    networks:
+      - djangonetwork
+    ports:
+      - "8000:8000"
+    environment:
+      - POSTGRES_HOST=postgres
+      - POSTGRES_NAME=sendit
+      - POSTGRES_USER=sendit
+      - POSTGRES_PASSWORD=sendit
+      - POSTGRES_PORT=5432
+    depends_on:
+      postgres:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+
 
 volumes:
   minio_data:
     driver: local
   db:
     driver: local
+
+
+networks:
+  djangonetwork:
+    driver: bridge

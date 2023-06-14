@@ -2,7 +2,7 @@
 import { BoulderCard } from "@/Components/BoulderCard.tsx";
 import { useAuth0 } from "@auth0/auth0-react";
 import {
-  getBouldersFromServer, getIdFromServer,
+  getBouldersFromServer, getIdByEmailFromServer, getIdFromServer,
   httpClient,
   serverUrl
 } from "@/Services/HttpClient.tsx";
@@ -19,29 +19,13 @@ export const BoulderPage = () => {
   const [token, setToken] = useState("");
   const [userId, setUserId] = useState();
 
-  // const getIdFromServer = {
-  //   async send(email: string) {
-  //     const getIdConfig = {
-  //       method: 'search',  // Specify your method here
-  //       url: serverUrl + "/users",
-  //       crossDomain: true,
-  //       data: {"email": email}
-  //     };
-  //     const id = await httpClient.request(getIdConfig);
-  //     return id.data;
-  //   }
-  // };
-
-  // });
 
   useEffect(() => {
     const getId = async () => {
-      const id = await getIdFromServer();
-      return id;
+      return getIdByEmailFromServer(user.email);
     };
 
     getId().then((value) => {
-      console.log(`id is ${value}`);
       setUserId(value);
     });
   }, []);

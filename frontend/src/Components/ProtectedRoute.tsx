@@ -3,26 +3,12 @@ import { Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 export const ProtectedRoute = ({children}) => {
-	const {user, getAccessTokenSilently} = useAuth0();
+	const {isAuthenticated, getAccessTokenSilently} = useAuth0();
 	const [token, setToken] = useState("");
 
-	useEffect(() => {
-		const getToken = async () => {
-			const token = await getAccessTokenSilently();
-			return token;
-		};
 
-		getToken().then((value) => {
-			setToken(value);
-			console.log(value);
-		});
-	});
-
-	if (!user) {
+	if (!isAuthenticated) {
 		return <Navigate to="/login" replace />;
-	}
-	else {
-		console.log(user);
 	}
 
 	return children;

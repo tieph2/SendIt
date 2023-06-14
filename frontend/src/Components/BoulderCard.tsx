@@ -24,7 +24,7 @@ export function BoulderCard(props: BoulderType & {user_id}) {
     <div className="card  m-4 bg-base-100 shadow-xl mt-6">
       <figure className="cardImageContainer">
         <img src={minioUrl}
-             alt="Shoes"
+             alt="Image for boulder problem"
              className="cardImg"
         />
       </figure>
