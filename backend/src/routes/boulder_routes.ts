@@ -4,10 +4,13 @@ import { User, UserRole } from "../db/entities/User.js";
 import { UploadFileToMinio } from "../plugins/minio.js";
 import { ICreateBoulderBody, IUpdateBoulderBody } from "../types.js";
 
+
+/** This function creates all the backend routes for boulder problems
+ *
+ * @param {FastifyInstance} app
+ * @constructor
+ */
 export function BoulderRoutesInit(app: FastifyInstance) {
-	/////////////////////////////////////////////////////////////////////////////
-	// HOMEWORK 1
-	/////////////////////////////////////////////////////////////////////////////
 	app.get("/boulders", async (req, reply) => {
 		try {
 			const theBoulder = await req.em.find(Boulder, {});
@@ -16,21 +19,6 @@ export function BoulderRoutesInit(app: FastifyInstance) {
 			reply.status(500).send(err);
 		}
 	});
-	/* This is where we have to be careful with the difference in a full entity
-   vs a reference.  References are a Mikro-orm optimization that lets us avoid database
-   queries when all we need from something is its id.  That is the case here:
-   we only *need* references to these Users, not their entire data.  We don't actually care
-   about any of their data except their ID, so we would like to use references here.
-   Unfortunately, we're currently tracking users by their email address, not their database id!
-
-   This is a situation where you have a choice to make.  Either we refactor a bit
-   now to start using `id` everywhere rather than email address (since THAT is the field
-   that links tables together in our database, not email...or we give up forever
-   on enabling LOTS of optimizations.  My personal choice is to refactor, so
-   the final code solution I merge into our official Doggr repo will be one
-   that fixes this problem.  We'll do it the simpler way for this solution
-   and take what we need from the database at any cost.
-   */
 
 	app.post<{ Body: ICreateBoulderBody }>("/boulders", async (req, reply) => {
 		try {
@@ -43,7 +31,7 @@ export function BoulderRoutesInit(app: FastifyInstance) {
 			const { zone, grade, score, color, note } = body;
 			await UploadFileToMinio(data);
 
-			const newUser = await req.em.create(Boulder, {
+			const newBoulder = await req.em.create(Boulder, {
 				zone,
 				color,
 				score,
@@ -53,7 +41,7 @@ export function BoulderRoutesInit(app: FastifyInstance) {
 			});
 
 			await req.em.flush();
-			return reply.send(newUser);
+			return reply.send(newBoulder);
 		} catch (err) {
 			return reply.status(500).send({ message: err.message });
 		}
@@ -95,7 +83,6 @@ export function BoulderRoutesInit(app: FastifyInstance) {
 		async (req, reply) => {
 			const { my_id, boulder_id  } = req.body;
 
-			console.log("Print");
 			try {
 				// Authenticate my user's role
 				const me = await req.em.findOneOrFail(User, my_id, { strict: true });

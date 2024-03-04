@@ -5,6 +5,11 @@ import { ICreateUsersBody, IUpdateUsersBody } from "../types.js";
 import { UploadFileToMinio } from "../plugins/minio.js";
 import "fastify-auth0-verify";
 
+/** This function creates all the backend routes for users of the application
+ *
+ * @param {FastifyInstance} app
+ * @constructor
+ */
 export function UserRoutesInit(app: FastifyInstance) {
 	// Route that returns all users, soft deleted and not
 	app.get("/dbTest", async (request: FastifyRequest, _reply: FastifyReply) => {

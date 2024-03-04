@@ -2,7 +2,7 @@ import { FastifyInstance } from "fastify";
 import { Attempt } from "../db/entities/Attempt.js";
 import { User } from "../db/entities/User.js";
 import { Boulder } from "../db/entities/Boulder.js";
-import { ICreateAttemptBody, IUpdateAttemptBody } from "../types";
+import { ICreateAttemptBody, IUpdateAttemptBody, ResultBody } from "../types";
 
 /** This function creates all the backend routes for climbing attempts by climbers
  *
@@ -23,50 +23,50 @@ export function AttemptRouteInit(app: FastifyInstance) {
 	// Fastify route handler
 	app.get("/ranking", async (req, reply) => {
 		try {
+
 			const successfulAttempts = await req.em.find(Attempt, { successful: true });
 
-			// Group the attempts by climber_id
-			//@ts-ignore
-			const attemptsByClimber = successfulAttempts.reduce((acc, attempt) => {
-				//@ts-ignore
-				if (!acc[attempt.climber]) {
-					//@ts-ignore
-					acc[attempt.climber] = [];
+			// Initialize an empty object to store boulders grouped by climber
+			const bouldersByClimber = {};
+
+			// Iterate over each Attempt object in the array, sort the attempt based on climber ID
+			successfulAttempts.forEach(attempt => {
+				const climberId = attempt.climber.id; // Assuming climber ID is accessible like this
+				const boulderId = attempt.boulder.id; // Assuming boulder ID is accessible like this
+
+				// If the climber does not have an entry in the bouldersByClimber object, initialize it as an empty array
+				if (!bouldersByClimber[climberId]) {
+					bouldersByClimber[climberId] = [];
 				}
-				//@ts-ignore
-				acc[attempt.climber].push(attempt);
-				return acc;
-			}, {});
 
-			const result = {};
+				// Push the current boulder ID into the array associated with the climber
+				bouldersByClimber[climberId].push(boulderId);
+			});
 
-			for (const attempt of attemptsByClimber["[object Object]"]) {
-				const user_id = attempt.climber.id;
-				const theUser = await req.em.findOne(User, user_id);
-				let userInfo = {
+			//Array to store each climber's information
+			const result: ResultBody[] = [];
+
+			//Calculate the score for each climber
+			for (const climberID in bouldersByClimber) {
+				const theUser = await req.em.findOne(User, Number(climberID));
+				const boulderIDList = bouldersByClimber[climberID];
+				let score: number = 0;
+				for (const boulderID of boulderIDList) {
+					const theBoulder = await req.em.findOne(Boulder, boulderID);
+					score += theBoulder.score;
+				}
+
+				result.push({
 					id: theUser.id,
 					name: theUser.name,
 					uri: theUser.imgUri,
-					score: 0,
-				};
-
-				result[user_id] = userInfo;
+					score: score,
+				});
 			}
 
-			for (const attempt of attemptsByClimber["[object Object]"]) {
-				const boulder_id = attempt.boulder.id;
-				const theBoulder = await req.em.findOne(Boulder, boulder_id);
-				const score = theBoulder.score;
-				result[attempt.climber.id].score += score;
-			}
-
-			const res = Object.values(result);
-			//@ts-ignore
-			const res_sorted = res.sort((a, b) => b.score - a.score);
-
-			//@ts-ignore
-			const sorted_result = Object.entries(result).sort((a, b) => b[1] - a[1]);
-			reply.send(res_sorted);
+			//Sort the result based on descending score
+			const resSorted = result.sort((a, b) => b.score - a.score);
+			reply.send(resSorted);
 		} catch (error) {
 			reply.status(500).send("An error occurred while processing the request.");
 		}

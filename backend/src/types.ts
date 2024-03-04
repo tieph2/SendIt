@@ -43,3 +43,10 @@ export type RegistrationBody = {
 	climber_id: number;
 	boulder_id: number;
 };
+
+export type ResultBody = {
+	id: number,
+	name: string,
+	uri: string,
+	score: number,
+};

@@ -39,8 +39,9 @@ export const Home = () => {
 			}
 		};
 
-		checkRegistered();
-		console.log("Registered", registered);
+		checkRegistered().finally(() => {
+			console.log("Registered", registered);
+		});
 	}, [registered]);
 
 	return (
