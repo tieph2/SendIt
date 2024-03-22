@@ -74,15 +74,15 @@ export function AttemptRouteInit(app: FastifyInstance) {
 
 	//Create an attempt between a climber and a boulder
 	app.post<{ Body: ICreateAttemptBody }>("/attempts", async (req, reply) => {
-		const { climber_id, boulder_id, successful } = req.body;
+		const { climberID, boulderID, successful } = req.body;
 
 		try {
 			// This is a pure convenience so we don't have to keep passing User to req.em.find
 			const userRepository = req.em.getRepository(User);
 			const boulderRepository = req.em.getRepository(Boulder);
 
-			const climber = await userRepository.getReference(climber_id);
-			const boulder = await boulderRepository.getReference(boulder_id);
+			const climber = await userRepository.getReference(climberID);
+			const boulder = await boulderRepository.getReference(boulderID);
 
 			const newAttempt = await req.em.create(Attempt, {
 				climber: climber,
@@ -101,11 +101,11 @@ export function AttemptRouteInit(app: FastifyInstance) {
 	});
 
 	//Search for attempts from specific user
-	app.search<{ Body: { climber_id: number } }>("/attempts/climber", async (req, reply) => {
-		const { climber_id } = req.body;
+	app.search<{ Body: { climberID: number } }>("/attempts/climber", async (req, reply) => {
+		const { climberID } = req.body;
 
 		try {
-			const climberEntity = await req.em.getReference(User, climber_id);
+			const climberEntity = await req.em.getReference(User, climberID);
 			const attempt = await req.em.find(Attempt, { climber: climberEntity });
 			return reply.send(attempt);
 		} catch (err) {
@@ -115,16 +115,16 @@ export function AttemptRouteInit(app: FastifyInstance) {
 
 	//Update attempt
 	app.put<{ Body: IUpdateAttemptBody }>("/attempts", async (req, reply) => {
-		const { climber_id, boulder_id, successful } = req.body;
+		const { climberID, boulderID, successful } = req.body;
 
 		const attemptToChange = await req.em.findOne(Attempt, {
-			climber: climber_id,
-			boulder: boulder_id,
+			climber: climberID,
+			boulder: boulderID,
 		});
 
 		const newAttempt = {
-			climber: climber_id,
-			boulder: boulder_id,
+			climber: climberID,
+			boulder: boulderID,
 			count: 0,
 			successful: successful,
 		};

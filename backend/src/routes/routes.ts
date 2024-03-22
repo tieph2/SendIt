@@ -2,10 +2,10 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import { FastifyInstance } from "fastify";
-import { UserRoutesInit } from "./user_routes.js";
-import { BoulderRoutesInit } from "./boulder_routes.js";
-import { AttemptRouteInit } from "./attempt_routes.js";
-import { RegistrationRouteInit } from "./register_routes.js";
+import { UserRoutesInit } from "./userRoutes.js";
+import { BoulderRoutesInit } from "./boulderRoutes.js";
+import { AttemptRouteInit } from "./attemptRoutes.js";
+import { RegistrationRouteInit } from "./registerRoutes.js";
 
 /** This function creates all backend routes for the site
  *

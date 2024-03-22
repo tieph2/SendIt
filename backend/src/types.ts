@@ -7,7 +7,7 @@ export type ICreateUsersBody = {
 export type IUpdateUsersBody = {
 	name: string;
 	id: number;
-	skill_level: number;
+	skillLevel: number;
 };
 
 export type ICreateBoulderBody = {
@@ -28,20 +28,20 @@ export type IUpdateBoulderBody = {
 };
 
 export type ICreateAttemptBody = {
-	climber_id: number;
-	boulder_id: number;
+	climberID: number;
+	boulderID: number;
 	successful: boolean;
 };
 
 export type IUpdateAttemptBody = {
-	climber_id: number;
-	boulder_id: number;
+	climberID: number;
+	boulderID: number;
 	successful: boolean;
 };
 
 export type RegistrationBody = {
-	climber_id: number;
-	boulder_id: number;
+	climberID: number;
+	boulderID: number;
 };
 
 export type ResultBody = {

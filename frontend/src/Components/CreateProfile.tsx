@@ -31,7 +31,7 @@ export const CreateProfile = () => {
 		const formData = new FormData();
 		formData.append("email", user.email);
 		formData.append("name", name);
-		formData.append("skill_level", level.toString());
+		formData.append("skillLevel", level.toString());
 		formData.append("file", selectedFile);
 
 		// @ts-ignore

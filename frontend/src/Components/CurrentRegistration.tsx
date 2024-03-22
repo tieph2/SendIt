@@ -7,8 +7,8 @@ export type CurrentRegistrationProps = RegistrationType & {
 };
 
 export function CurrentRegistration(props: CurrentRegistrationProps) {
-	const { imgUri, name, skill_level } = props;
-	const { boulder_id, boulderImgUri, zone, color, score, grade, note } = props;
+	const { imgUri, name, skillLevel } = props;
+	const { boulderID, boulderImgUri, zone, color, score, grade, note } = props;
 	const { onPassButtonClick, onFailButtonClick } = props;
 	const profilePicURl = "http://localhost:9000/sendit/" + imgUri;
 	const boulderPicURL = "http://localhost:9000/sendit/" + boulderImgUri;
@@ -28,7 +28,7 @@ export function CurrentRegistration(props: CurrentRegistrationProps) {
 						/>
 						<div>
 							<h3 className="text-lg font-semibold">{name}</h3>
-							<p className="text-gray-500">Skill Level: {skill_level}</p>
+							<p className="text-gray-500">Skill Level: {skillLevel}</p>
 						</div>
 					</div>
 					<div className={"space-x-8 my-1 flex justify-center"}>
@@ -55,7 +55,7 @@ export function CurrentRegistration(props: CurrentRegistrationProps) {
 				>
 					<div className="flex flex-col items-center mb-4">
 						<div className={"flex flex-col gap-1"}>
-							<h3 className="text-lg font-semibold">Attempting: boulder {boulder_id}</h3>
+							<h3 className="text-lg font-semibold">Attempting: boulder {boulderID}</h3>
 							<p className=""> Color {color}</p>
 							<div
 								className={"boulderColorBlock"}

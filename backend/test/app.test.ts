@@ -63,8 +63,8 @@ void tap.test("Creating a new user", async () => {
 
 void tap.test("Creating a new message", async () => {
 	const payload = {
-		sender_id: 1,
-		receiver_id: 3,
+		senderID: 1,
+		receiverID: 3,
 		message: "Hi",
 	};
 
@@ -82,7 +82,7 @@ void tap.test("Creating a new message", async () => {
 
 void tap.test("Reading messages sent to a specific user", async () => {
 	const payload = {
-		receiver_id: 3,
+		receiverID: 3,
 	};
 
 	const response = await app.inject({
@@ -96,7 +96,7 @@ void tap.test("Reading messages sent to a specific user", async () => {
 
 void tap.test("Reading messages sent BY a specific user", async () => {
 	const payload = {
-		sender_id: 1,
+		senderID: 1,
 	};
 
 	const response = await app.inject({
@@ -197,8 +197,8 @@ void tap.test("Deleting all sent messages fails with incorrect password", async 
 
 void tap.test("Testing message bad words filter", async () => {
 	const payload = {
-		sender_id: 1,
-		receiver_id: 2,
+		senderID: 1,
+		receiverID: 2,
 		message: "Hi you shit",
 	};
 

@@ -63,11 +63,11 @@ export function UserRoutesInit(app: FastifyInstance) {
 
 	// UPDATE
 	app.put<{ Body: IUpdateUsersBody }>("/users", async (req, reply) => {
-		const { name, id, skill_level } = req.body;
+		const { name, id, skillLevel } = req.body;
 
 		const userToChange = await req.em.findOneOrFail(User, id, { strict: true });
 		userToChange.name = name;
-		userToChange.skill_level = skill_level;
+		userToChange.skillLevel = skillLevel;
 
 		// Reminder -- this is how we persist our JS object changes to the database itself
 		await req.em.flush();
@@ -75,19 +75,19 @@ export function UserRoutesInit(app: FastifyInstance) {
 	});
 
 	// DELETE
-	app.delete<{ Body: { my_id: number; id_to_delete: number } }>("/users", async (req, reply) => {
-		const { my_id, id_to_delete } = req.body;
+	app.delete<{ Body: { myID: number; IdToDelete: number } }>("/users", async (req, reply) => {
+		const { myID, IdToDelete } = req.body;
 
 		try {
 			// Authenticate my user's role
-			const me = await req.em.findOneOrFail(User, my_id, { strict: true });
+			const me = await req.em.findOneOrFail(User, myID, { strict: true });
 
 			// Make sure the requester is an Admin
 			if (me.role === UserRole.USER) {
 				return reply.status(401).send({ message: "You are not an admin!" });
 			}
 
-			const theUserToDelete = await req.em.findOneOrFail(User, id_to_delete, { strict: true });
+			const theUserToDelete = await req.em.findOneOrFail(User, IdToDelete, { strict: true });
 
 			//Make sure the to-be-deleted user isn't an admin
 			if (theUserToDelete.role === UserRole.ADMIN) {
@@ -111,13 +111,13 @@ export function UserRoutesInit(app: FastifyInstance) {
 				// @ts-ignore
 				Object.keys(data.fields).map((key) => [key, data.fields[key].value])
 			);
-			const { email, name, skill_level } = body;
+			const { email, name, skillLevel } = body;
 			await UploadFileToMinio(data);
 
 			const newUser = await req.em.create(User, {
 				name,
 				email,
-				skill_level,
+				skillLevel,
 				imgUri: data.filename,
 				// We'll only create Admins manually!
 				role: UserRole.USER,

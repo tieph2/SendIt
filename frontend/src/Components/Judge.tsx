@@ -27,16 +27,16 @@ export const Judge = () => {
 	});
 
 	const onPassButtonClick = () => {
-		UpdateAttempt.send(currentRegistration.id, currentRegistration.boulder_id, true)
+		UpdateAttempt.send(currentRegistration.id, currentRegistration.boulderID, true)
 			.catch(err => {
 				console.error(err);
 			});
-		PassService.send(currentRegistration.id, currentRegistration.boulder_id)
+		PassService.send(currentRegistration.id, currentRegistration.boulderID)
 			.catch(err => {
 				console.log("Error passing climber");
 				console.error(err);
 			});
-		Dequeue.send(currentRegistration.id, currentRegistration.boulder_id)
+		Dequeue.send(currentRegistration.id, currentRegistration.boulderID)
 			.catch(err => {
 				console.error(err);
 			});
@@ -44,11 +44,11 @@ export const Judge = () => {
 	};
 
 	const onFailButtonClick = () => {
-		UpdateAttempt.send(currentRegistration.id, currentRegistration.boulder_id, false)
+		UpdateAttempt.send(currentRegistration.id, currentRegistration.boulderID, false)
 			.catch(err => {
 				console.error(err);
 			});
-		Dequeue.send(currentRegistration.id, currentRegistration.boulder_id)
+		Dequeue.send(currentRegistration.id, currentRegistration.boulderID)
 			.catch(err => {
 				console.error(err);
 			});

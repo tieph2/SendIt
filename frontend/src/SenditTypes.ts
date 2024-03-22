@@ -1,7 +1,7 @@
 export type ProfileType = {
 	imgUri: string;
 	name: string;
-	skill_level: string;
+	skillLevel: string;
 	id: number;
 };
 
@@ -18,9 +18,9 @@ export type BoulderType = {
 export type RegistrationType = {
 	imgUri: string;
 	name: string;
-	skill_level: string;
+	skillLevel: string;
 	id: number;
-	boulder_id: number;
+	boulderID: number;
 	boulderImgUri: string;
 	zone: number;
 	color: string;

@@ -12,7 +12,7 @@ export enum UserRole {
 	CLIMBER = "Climber",
 }
 
-@SoftDeletable(() => User, "deleted_at", () => new Date())
+@SoftDeletable(() => User, "deletedAt", () => new Date())
 @Entity({ tableName: "users" })
 export class User extends SenditBaseEntity {
 	@Property()
@@ -23,12 +23,12 @@ export class User extends SenditBaseEntity {
 	name: string;
 
 	@Property()
-	skill_level: number;
+	skillLevel: number;
 
 	@Enum(() => UserRole)
 	role!: UserRole; // string enum
 
-	@Property({ fieldName: "img_uri" })
+	@Property({ fieldName: "imgURI" })
 	imgUri!: string;
 
 	//Attempts

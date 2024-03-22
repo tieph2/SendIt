@@ -2,13 +2,13 @@ import { BoulderType, Color } from "@/SenditTypes.ts";
 import { Queue } from "@/Components/Queue.tsx";
 import { EnQueue } from "@/Services/QueueService.tsx";
 
-export function BoulderCard(props: BoulderType & { user_id }) {
-	const { id, imgUri, zone, color, score, grade, note } = props;
-	const user_id = props.user_id;
+export function BoulderCard(props: BoulderType & { userID }) {
+	const {id, imgUri, zone, color, score, grade, note } = props;
+	const userID = props.userID;
 	const minioUrl = `http://localhost:9000/sendit/${imgUri}`;
 
 	const onRegisterButtonClick = () => {
-		EnQueue.send(user_id, id)
+		EnQueue.send(userID, id)
 			.catch((err) => console.log(err));
 	};
 
@@ -42,8 +42,8 @@ export function BoulderCard(props: BoulderType & { user_id }) {
 				</p>
 
 				<h4> Current lineup</h4>
-				<Queue boulder_id={id} />
-				{user_id ? (
+				<Queue boulderID={id} />
+				{userID ? (
 					<div className="card-actions justify-start">
 						<button className="btn btn-primary" onClick={onRegisterButtonClick}>
 							Climb

@@ -2,7 +2,7 @@ import { httpClient, serverUrl } from "@/Services/HttpClient.tsx";
 
 export const CheckRegisterService = {
 	async send(token: string) {
-		const pass_service_config = {
+		const passServiceConfig = {
 			method: "search", // Specify your method here
 			url: serverUrl + "/users",
 			crossDomain: true,
@@ -10,6 +10,7 @@ export const CheckRegisterService = {
 				token: token,
 			},
 		};
-		return httpClient.request(pass_service_config);
+		return httpClient.request(passServiceConfig);
+
 	},
 };

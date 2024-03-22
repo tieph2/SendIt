@@ -47,7 +47,7 @@ export async function getIdFromServer() {
 
 //Get id with only email
 export async function getIdByEmailFromServer(email) {
-	const get_id_config = {
+	const getIdConfig = {
 		method: "search", // Specify your method here
 		url: serverUrl + "/users",
 		crossDomain: true,
@@ -55,6 +55,6 @@ export async function getIdByEmailFromServer(email) {
 			email: email,
 		},
 	};
-	const id = await httpClient.request(get_id_config);
+	const id = await httpClient.request(getIdConfig);
 	return id.data;
 }

@@ -2,39 +2,39 @@ import { httpClient, serverUrl } from "@/Services/HttpClient.tsx";
 
 //This service removes climber-boulder registration, essentially removing a climber from the line-up
 export const Dequeue = {
-	async send(climber_id: number, boulder_id: number) {
-		const dequeue_config = {
+	async send(climberID: number, boulderID: number) {
+		const dequeueConfig = {
 			method: "delete", // Specify your method here
 			url: serverUrl + "/registration",
 			crossDomain: true,
 			data: {
-				climber_id: climber_id,
-				boulder_id: boulder_id,
+				climberID: climberID,
+				boulderID: boulderID,
 			},
 		};
-		return httpClient.request(dequeue_config);
+		return httpClient.request(dequeueConfig);
 	},
 };
 
 //This service search for all registration of a boulder
 export const GetQueue = {
-	async send(boulder_id: number) {
-		const boulder_queue_config = {
+	async send(boulderID: number) {
+		const boulderQueueConfig = {
 			method: "search", // Specify your method here
 			url: serverUrl + "/registration",
 			crossDomain: true,
-			data: { boulder: boulder_id },
+			data: { boulder: boulderID },
 		};
-		const climbers = await httpClient.request(boulder_queue_config);
+		const climbers = await httpClient.request(boulderQueueConfig);
 		return climbers.data;
 	},
 };
 
 export const EnQueue = {
-	async send(climber_id: number, boulder_id: number) {
+	async send(climberID: number, boulderID: number) {
 		const registration = await httpClient.post("/registration", {
-			climber_id: climber_id,
-			boulder_id: boulder_id,
+			climberID: climberID,
+			boulderID: boulderID,
 		});
 		return registration.data;
 	},
@@ -42,13 +42,13 @@ export const EnQueue = {
 
 export const GetCurrentRegistration = {
 	async send(zone: number) {
-		const boulder_queue_config = {
+		const boulderQueueConfig = {
 			method: "search", // Specify your method here
 			url: serverUrl + "/registration/top",
 			crossDomain: true,
 			data: { zone: zone },
 		};
-		const climbers = await httpClient.request(boulder_queue_config);
+		const climbers = await httpClient.request(boulderQueueConfig);
 		return climbers.data;
 	},
 };

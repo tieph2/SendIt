@@ -67,7 +67,7 @@ export const Home = () => {
 										<div className={"flex"}>
 											<img
 												className={"avatar-sm mr-4"}
-												src={minioUrl + judge.img_uri}
+												src={minioUrl + judge.imgUri}
 												alt={`Judge ${judge.name} profile pic`}
 											/>
 											<p>{judge.name}</p>

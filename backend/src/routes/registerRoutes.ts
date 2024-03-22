@@ -40,15 +40,15 @@ export function RegistrationRouteInit(app: FastifyInstance) {
 
 	//Create a registration between a climber and a boulder
 	app.post<{ Body: RegistrationBody }>("/registration", async (req, reply) => {
-		const { climber_id, boulder_id } = req.body;
+		const { climberID, boulderID } = req.body;
 
 		try {
 			// This is a pure convenience so we don't have to keep passing User to req.em.find
 			const userRepository = req.em.getRepository(User);
 			const boulderRepository = req.em.getRepository(Boulder);
 
-			const climber = await userRepository.getReference(climber_id);
-			const boulder = await boulderRepository.getReference(boulder_id);
+			const climber = await userRepository.getReference(climberID);
+			const boulder = await boulderRepository.getReference(boulderID);
 
 			const newAttempt = await req.em.create(Registration, {
 				climber: climber,
@@ -66,13 +66,13 @@ export function RegistrationRouteInit(app: FastifyInstance) {
 
 	//Delete registration
 	app.delete<{ Body: RegistrationBody }>("/registration", async (req, reply) => {
-		const { climber_id, boulder_id } = req.body;
+		const { climberID, boulderID } = req.body;
 		console.log("Deleting");
 
 		try {
 			const registration = await req.em.findOneOrFail(Registration, {
-				climber: climber_id,
-				boulder: boulder_id,
+				climber: climberID,
+				boulder: boulderID,
 			});
 			await req.em.remove(registration).flush();
 			return reply.send(registration);
@@ -97,7 +97,7 @@ export function RegistrationRouteInit(app: FastifyInstance) {
 			const oldestRegistration = await req.em.findOne(
 				Registration,
 				{ boulder: { $in: boulders } },
-				{ orderBy: { created_at: "ASC" } }
+				{ orderBy: { createdAt: "ASC" } }
 			);
 
 			if (!oldestRegistration) {
@@ -105,16 +105,16 @@ export function RegistrationRouteInit(app: FastifyInstance) {
 				return null;
 			}
 
-			// Query User and Boulder using climber_id and boulder_id from the oldest registration
+			// Query User and Boulder using climberID and boulderID from the oldest registration
 			const user = await req.em.findOne(User, { id: oldestRegistration.climber });
 			const boulder = await req.em.findOne(Boulder, { id: oldestRegistration.boulder });
 
 			const result = {
 				imgUri: user.imgUri,
 				name: user.name,
-				skill_level: user.skill_level,
+				skillLevel: user.skillLevel,
 				id: user.id,
-				boulder_id: boulder.id,
+				boulderID: boulder.id,
 				boulderImgUri: boulder.imgUri,
 				zone: boulder.zone,
 				color: boulder.color,

@@ -30,8 +30,8 @@ export class Attempt {
 	note: string = "";
 
 	@Property()
-	created_at = new Date();
+	createdAt = new Date();
 
 	@Property()
-	updated_at: Date = new Date();
+	updatedAt: Date = new Date();
 }
