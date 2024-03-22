@@ -28,7 +28,7 @@ export class User extends SenditBaseEntity {
 	@Enum(() => UserRole)
 	role!: UserRole; // string enum
 
-	@Property({ fieldName: "imgURI" })
+	@Property({ fieldName: "img_uri" })
 	imgUri!: string;
 
 	//Attempts

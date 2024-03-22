@@ -21,6 +21,6 @@ export class Boulder extends SenditBaseEntity {
 	@Property()
 	note: string;
 
-	@Property({ fieldName: "imgURI" })
+	@Property({ fieldName: "img_uri" })
 	imgUri!: string;
 }
