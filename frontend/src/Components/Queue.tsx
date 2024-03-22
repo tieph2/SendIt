@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 const minioUrl = `http://localhost:9000/sendit/`;
 
 export const Queue = (props: { boulderID }) => {
-	const [time, setTime] = useState(new Date());
+	const [,setTime] = useState(new Date());
 	const [currentClimbers, setCurrentClimbers] = useState([]);
 	const { boulderID } = props;
 
@@ -22,7 +22,6 @@ export const Queue = (props: { boulderID }) => {
 	useEffect(() => {
 		const interval = setInterval(() => {
 			setTime(new Date());
-			//console.log("Queue refreshed");
 		}, 1000);
 
 		return () => clearInterval(interval);

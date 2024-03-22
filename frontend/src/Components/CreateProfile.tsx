@@ -20,14 +20,13 @@ export const CreateProfile = () => {
 	};
 
 	const handleNumberInputChange = (e) => {
-		// Remove any non-digit characters from the input value
-		const sanitizedValue = e.target.value.replace(/\D/g, "");
-		// Update the input value
-		e.target.value = sanitizedValue;
+		// Update the input value by removing any
+		// non-digit characters from the input value
+		e.target.value = e.target.value.replace(/\D/g, "");
 		setLevel(e.target.value);
 	};
 
-	const onUploadFile = (ev) => {
+	const onUploadFile = () => {
 		const formData = new FormData();
 		formData.append("email", user.email);
 		formData.append("name", name);
