@@ -1,6 +1,8 @@
 import { httpClient, serverUrl } from "@/Services/HttpClient.tsx";
 
-//This service removes climber-boulder registration, essentially removing a climber from the line-up
+/** A front-end service for judge users to removes climber-boulder registration,
+ *  essentially removing a climber from the line-up
+ */
 export const Dequeue = {
 	async send(climberID: number, boulderID: number) {
 		const dequeueConfig = {
@@ -16,7 +18,9 @@ export const Dequeue = {
 	},
 };
 
-//This service search for all registration of a boulder
+/** A front-end service for getting the current
+ * climber queue for a boulder problem
+ */
 export const GetQueue = {
 	async send(boulderID: number) {
 		const boulderQueueConfig = {
@@ -30,6 +34,9 @@ export const GetQueue = {
 	},
 };
 
+/** A front-end service for climber to
+ * queue up for a bouldering problem
+ */
 export const EnQueue = {
 	async send(climberID: number, boulderID: number) {
 		const registration = await httpClient.post("/registration", {
@@ -40,7 +47,10 @@ export const EnQueue = {
 	},
 };
 
-export const GetCurrentRegistration = {
+/** A front-end service for judge to get all climber-boulder
+ * registration at a zone
+ */
+export const GetZoneRegistration = {
 	async send(zone: number) {
 		const boulderQueueConfig = {
 			method: "search", // Specify your method here

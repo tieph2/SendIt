@@ -1,5 +1,8 @@
 import { httpClient, serverUrl } from "@/Services/HttpClient.tsx";
 
+/** A front-end service for judge to update a climber's attempt
+ * at a boulder problem
+ */
 export const UpdateAttempt = {
 	async send(climberID: number, boulderID: number, successful: boolean) {
 		const boulderQueueConfig = {

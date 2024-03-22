@@ -1,6 +1,6 @@
 
 import {  RegistrationType } from "@/SenditTypes.ts";
-import { GetCurrentRegistration } from "@/Services/QueueService.tsx";
+import { GetZoneRegistration } from "@/Services/QueueService.tsx";
 import { PassService } from "@/Services/PassService.tsx";
 import { Dequeue } from "@/Services/QueueService.tsx";
 import {  useEffect, useState } from "react";
@@ -12,7 +12,7 @@ export const Judge = () => {
 	const [zone, setZone] = useState(1);
 
 	const fetchRegistration = () => {
-		GetCurrentRegistration.send(zone)
+		GetZoneRegistration.send(zone)
 			.then((response) => {
 				setCurrentRegistration(response);
 			})

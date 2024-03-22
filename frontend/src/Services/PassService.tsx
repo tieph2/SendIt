@@ -1,5 +1,8 @@
 import { httpClient, serverUrl } from "@/Services/HttpClient.tsx";
 
+/** A front-end service for judge users to pass a climber
+ * who climbs a boulder
+ */
 export const PassService = {
 	async send(climberID: number, boulderID: number) {
 		const pass_service_config = {
