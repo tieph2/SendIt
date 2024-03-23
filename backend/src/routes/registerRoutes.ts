@@ -91,7 +91,7 @@ export function RegistrationRouteInit(app: FastifyInstance) {
 			const boulders = await req.em.find(Boulder, { zone });
 
 			if (boulders.length === 0) {
-				return reply.status(404).send("No boulders found in the specified zone.");
+				return reply.status(500).send("No boulders found in the specified zone.");
 			}
 
 			// Get the oldest Registration for a Boulder in the specified zone
@@ -102,7 +102,7 @@ export function RegistrationRouteInit(app: FastifyInstance) {
 			);
 
 			if (!oldestRegistration) {
-				reply.status(404).send("No registrations found for the boulders in the specified zone.");
+				reply.status(500).send("No registrations found for the boulders in the specified zone.");
 				return null;
 			}
 
