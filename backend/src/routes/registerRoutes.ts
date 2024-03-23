@@ -40,15 +40,15 @@ export function RegistrationRouteInit(app: FastifyInstance) {
 
 	//Create a registration between a climber and a boulder
 	app.post<{ Body: RegistrationBody }>("/registration", async (req, reply) => {
-		const { climberID, boulderID } = req.body;
+		const { climberId, boulderId } = req.body;
 
 		try {
 			// This is a pure convenience so we don't have to keep passing User to req.em.find
 			const userRepository = req.em.getRepository(User);
 			const boulderRepository = req.em.getRepository(Boulder);
 
-			const climber = await userRepository.getReference(climberID);
-			const boulder = await boulderRepository.getReference(boulderID);
+			const climber = await userRepository.getReference(climberId);
+			const boulder = await boulderRepository.getReference(boulderId);
 
 			const newAttempt = await req.em.create(Registration, {
 				climber: climber,
@@ -66,13 +66,13 @@ export function RegistrationRouteInit(app: FastifyInstance) {
 
 	//Delete registration
 	app.delete<{ Body: RegistrationBody }>("/registration", async (req, reply) => {
-		const { climberID, boulderID } = req.body;
+		const { climberId, boulderId } = req.body;
 		console.log("Deleting");
 
 		try {
 			const registration = await req.em.findOneOrFail(Registration, {
-				climber: climberID,
-				boulder: boulderID,
+				climber: climberId,
+				boulder: boulderId,
 			});
 			await req.em.remove(registration).flush();
 			return reply.send(registration);
@@ -114,7 +114,7 @@ export function RegistrationRouteInit(app: FastifyInstance) {
 				name: user.name,
 				skillLevel: user.skillLevel,
 				id: user.id,
-				boulderID: boulder.id,
+				boulderId: boulder.id,
 				boulderImgUri: boulder.imgUri,
 				zone: boulder.zone,
 				color: boulder.color,

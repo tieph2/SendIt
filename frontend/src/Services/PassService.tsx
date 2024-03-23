@@ -4,14 +4,14 @@ import { httpClient, serverUrl } from "@/Services/HttpClient.tsx";
  * who climbs a boulder
  */
 export const PassService = {
-	async send(climberID: number, boulderID: number) {
+	async send(climberId: number, boulderId: number) {
 		const pass_service_config = {
 			method: "put", // Specify your method here
 			url: serverUrl + "/attempts",
 			crossDomain: true,
 			data: {
-				climberID: climberID,
-				boulderID: boulderID,
+				climberId: climberId,
+				boulderId: boulderId,
 				successful: true,
 			},
 		};

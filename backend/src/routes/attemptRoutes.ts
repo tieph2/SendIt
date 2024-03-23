@@ -47,12 +47,12 @@ export function AttemptRouteInit(app: FastifyInstance) {
 			const result: ResultBody[] = [];
 
 			//Calculate the score for each climber
-			for (const climberID in bouldersByClimber) {
-				const theUser = await req.em.findOne(User, Number(climberID));
-				const boulderIDList = bouldersByClimber[climberID];
+			for (const climberId in bouldersByClimber) {
+				const theUser = await req.em.findOne(User, Number(climberId));
+				const boulderIdList = bouldersByClimber[climberId];
 				let score: number = 0;
-				for (const boulderID of boulderIDList) {
-					const theBoulder = await req.em.findOne(Boulder, boulderID);
+				for (const boulderId of boulderIdList) {
+					const theBoulder = await req.em.findOne(Boulder, boulderId);
 					score += theBoulder.score;
 				}
 
@@ -74,15 +74,15 @@ export function AttemptRouteInit(app: FastifyInstance) {
 
 	//Create an attempt between a climber and a boulder
 	app.post<{ Body: ICreateAttemptBody }>("/attempts", async (req, reply) => {
-		const { climberID, boulderID, successful } = req.body;
+		const { climberId, boulderId, successful } = req.body;
 
 		try {
 			// This is a pure convenience so we don't have to keep passing User to req.em.find
 			const userRepository = req.em.getRepository(User);
 			const boulderRepository = req.em.getRepository(Boulder);
 
-			const climber = await userRepository.getReference(climberID);
-			const boulder = await boulderRepository.getReference(boulderID);
+			const climber = await userRepository.getReference(climberId);
+			const boulder = await boulderRepository.getReference(boulderId);
 
 			const newAttempt = await req.em.create(Attempt, {
 				climber: climber,
@@ -101,11 +101,11 @@ export function AttemptRouteInit(app: FastifyInstance) {
 	});
 
 	//Search for attempts from specific user
-	app.search<{ Body: { climberID: number } }>("/attempts/climber", async (req, reply) => {
-		const { climberID } = req.body;
+	app.search<{ Body: { climberId: number } }>("/attempts/climber", async (req, reply) => {
+		const { climberId: climberId } = req.body;
 
 		try {
-			const climberEntity = await req.em.getReference(User, climberID);
+			const climberEntity = await req.em.getReference(User, climberId);
 			const attempt = await req.em.find(Attempt, { climber: climberEntity });
 			return reply.send(attempt);
 		} catch (err) {
@@ -115,16 +115,16 @@ export function AttemptRouteInit(app: FastifyInstance) {
 
 	//Update attempt
 	app.put<{ Body: IUpdateAttemptBody }>("/attempts", async (req, reply) => {
-		const { climberID, boulderID, successful } = req.body;
+		const { climberId, boulderId, successful } = req.body;
 
 		const attemptToChange = await req.em.findOne(Attempt, {
-			climber: climberID,
-			boulder: boulderID,
+			climber: climberId,
+			boulder: boulderId,
 		});
 
 		const newAttempt = {
-			climber: climberID,
-			boulder: boulderID,
+			climber: climberId,
+			boulder: boulderId,
 			count: 0,
 			successful: successful,
 		};

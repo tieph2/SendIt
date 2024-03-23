@@ -4,14 +4,14 @@ import { httpClient, serverUrl } from "@/Services/HttpClient.tsx";
  *  essentially removing a climber from the line-up
  */
 export const Dequeue = {
-	async send(climberID: number, boulderID: number) {
+	async send(climberId: number, boulderId: number) {
 		const dequeueConfig = {
 			method: "delete", // Specify your method here
 			url: serverUrl + "/registration",
 			crossDomain: true,
 			data: {
-				climberID: climberID,
-				boulderID: boulderID,
+				climberId: climberId,
+				boulderId: boulderId,
 			},
 		};
 		return httpClient.request(dequeueConfig);
@@ -22,12 +22,12 @@ export const Dequeue = {
  * climber queue for a boulder problem
  */
 export const GetQueue = {
-	async send(boulderID: number) {
+	async send(boulderId: number) {
 		const boulderQueueConfig = {
 			method: "search", // Specify your method here
 			url: serverUrl + "/registration",
 			crossDomain: true,
-			data: { boulder: boulderID },
+			data: { boulder: boulderId },
 		};
 		const climbers = await httpClient.request(boulderQueueConfig);
 		return climbers.data;
@@ -38,10 +38,10 @@ export const GetQueue = {
  * queue up for a bouldering problem
  */
 export const EnQueue = {
-	async send(climberID: number, boulderID: number) {
+	async send(climberId: number, boulderIs: number) {
 		const registration = await httpClient.post("/registration", {
-			climberID: climberID,
-			boulderID: boulderID,
+			climberId: climberId,
+			boulderId: boulderIs,
 		});
 		return registration.data;
 	},

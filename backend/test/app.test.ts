@@ -63,8 +63,8 @@ void tap.test("Creating a new user", async () => {
 
 void tap.test("Creating a new message", async () => {
 	const payload = {
-		senderID: 1,
-		receiverID: 3,
+		senderId: 1,
+		receiverId: 3,
 		message: "Hi",
 	};
 
@@ -82,7 +82,7 @@ void tap.test("Creating a new message", async () => {
 
 void tap.test("Reading messages sent to a specific user", async () => {
 	const payload = {
-		receiverID: 3,
+		receiverId: 3,
 	};
 
 	const response = await app.inject({
@@ -96,7 +96,7 @@ void tap.test("Reading messages sent to a specific user", async () => {
 
 void tap.test("Reading messages sent BY a specific user", async () => {
 	const payload = {
-		senderID: 1,
+		senderId: 1,
 	};
 
 	const response = await app.inject({
@@ -110,7 +110,7 @@ void tap.test("Reading messages sent BY a specific user", async () => {
 
 void tap.test("Updating a sent message", async () => {
 	const payload = {
-		message_id: 1,
+		messageId: 1,
 		message: "New message text",
 	};
 
@@ -127,8 +127,8 @@ void tap.test("Updating a sent message", async () => {
 
 void tap.test("Deleting a specific message", async () => {
 	let payload = {
-		my_id: 1,
-		message_id: 5,
+		myId: 1,
+		messageId: 5,
 		password: "password",
 	};
 
@@ -165,7 +165,7 @@ void tap.test("Deleting a specific message", async () => {
 
 void tap.test("Deleting all sent messages", async () => {
 	const payload = {
-		my_id: 1,
+		myId: 1,
 		password: "password",
 	};
 
@@ -180,7 +180,7 @@ void tap.test("Deleting all sent messages", async () => {
 
 void tap.test("Deleting all sent messages fails with incorrect password", async () => {
 	const payload = {
-		my_id: 3,
+		myId: 3,
 		password: "WRONG",
 	};
 
@@ -197,8 +197,8 @@ void tap.test("Deleting all sent messages fails with incorrect password", async 
 
 void tap.test("Testing message bad words filter", async () => {
 	const payload = {
-		senderID: 1,
-		receiverID: 2,
+		senderId: 1,
+		receiverId: 2,
 		message: "Hi you shit",
 	};
 

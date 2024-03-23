@@ -48,11 +48,11 @@ export function BoulderRoutesInit(app: FastifyInstance) {
 	});
 
 	// Search for a boulder problem given boulder id
-	app.search<{ Body: { boulderID: number } }>("/boulders", async (req, reply) => {
-		const { boulderID: boulderID } = req.body;
+	app.search<{ Body: { boulderId: number } }>("/boulders", async (req, reply) => {
+		const { boulderId: boulderId } = req.body;
 
 		try {
-			const boulder = await req.em.find(Boulder, { id: boulderID });
+			const boulder = await req.em.find(Boulder, { id: boulderId });
 			return reply.send(boulder);
 		} catch (err) {
 			return reply.status(500).send({ message: err.message });
@@ -78,21 +78,21 @@ export function BoulderRoutesInit(app: FastifyInstance) {
 	});
 
 	// Delete a boulder problem after checking user is a judge
-	app.delete<{ Body: { myID: number; bouderID: number } }>(
+	app.delete<{ Body: { myId: number; bouderId: number } }>(
 		"/boulders",
 		async (req, reply) => {
-			const { myID, bouderID  } = req.body;
+			const { myId, bouderId  } = req.body;
 
 			try {
 				// Authenticate my user's role
-				const me = await req.em.findOneOrFail(User, myID, { strict: true });
+				const me = await req.em.findOneOrFail(User, myId, { strict: true });
 
 				// Make sure the requester is an Admin
 				if (me.role !== UserRole.JUDGE) {
 					return reply.status(401).send({ message: "You are not an judge!" });
 				}
 
-				const boulderToDelete = await req.em.findOneOrFail(Boulder, bouderID, { strict: true });
+				const boulderToDelete = await req.em.findOneOrFail(Boulder, bouderId, { strict: true });
 				await req.em.removeAndFlush(boulderToDelete);
 				return reply.send();
 			} catch (err) {

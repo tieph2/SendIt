@@ -20,7 +20,7 @@ export type RegistrationType = {
 	name: string;
 	skillLevel: string;
 	id: number;
-	boulderID: number;
+	boulderId: number;
 	boulderImgUri: string;
 	zone: number;
 	color: string;

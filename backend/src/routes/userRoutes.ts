@@ -75,12 +75,12 @@ export function UserRoutesInit(app: FastifyInstance) {
 	});
 
 	// DELETE
-	app.delete<{ Body: { myID: number; IdToDelete: number } }>("/users", async (req, reply) => {
-		const { myID, IdToDelete } = req.body;
+	app.delete<{ Body: { myId: number; IdToDelete: number } }>("/users", async (req, reply) => {
+		const { myId, IdToDelete } = req.body;
 
 		try {
 			// Authenticate my user's role
-			const me = await req.em.findOneOrFail(User, myID, { strict: true });
+			const me = await req.em.findOneOrFail(User, myId, { strict: true });
 
 			// Make sure the requester is an Admin
 			if (me.role === UserRole.USER) {

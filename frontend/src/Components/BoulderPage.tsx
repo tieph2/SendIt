@@ -37,7 +37,7 @@ export const BoulderPage = () => {
 		<div className="container flex flex-row">
 			<div className={"boulderPage flex flex-row flex-wrap lg:w-5/6 md:w-2/3"}>
 				{boulders.map((item) => {
-					return <BoulderCard key={item.id} {...item} userID={userId} />;
+					return <BoulderCard key={item.id} {...item} userId={userId} />;
 				})}
 			</div>
 			<Ranking />

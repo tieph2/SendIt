@@ -28,20 +28,20 @@ export type IUpdateBoulderBody = {
 };
 
 export type ICreateAttemptBody = {
-	climberID: number;
-	boulderID: number;
+	climberId: number;
+	boulderId: number;
 	successful: boolean;
 };
 
 export type IUpdateAttemptBody = {
-	climberID: number;
-	boulderID: number;
+	climberId: number;
+	boulderId: number;
 	successful: boolean;
 };
 
 export type RegistrationBody = {
-	climberID: number;
-	boulderID: number;
+	climberId: number;
+	boulderId: number;
 };
 
 export type ResultBody = {

@@ -3,14 +3,14 @@ import { useEffect, useState } from "react";
 
 const minioUrl = `http://localhost:9000/sendit/`;
 
-export const Queue = (props: { boulderID }) => {
+export const Queue = (props: { boulderId }) => {
 	const [,setTime] = useState(new Date());
 	const [currentClimbers, setCurrentClimbers] = useState([]);
-	const { boulderID } = props;
+	const { boulderId } = props;
 
 	useEffect(() => {
 		const fetchClimbers = () => {
-			GetQueue.send(boulderID)
+			GetQueue.send(boulderId)
 				.then((response) => {
 					setCurrentClimbers(response);
 				})
