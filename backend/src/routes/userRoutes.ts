@@ -61,7 +61,7 @@ export function UserRoutesInit(app: FastifyInstance) {
 		}
 	});
 
-	// UPDATE
+	// Route that updates a user's skill level
 	app.put<{ Body: IUpdateUsersBody }>("/users", async (req, reply) => {
 		const { name, id, skillLevel } = req.body;
 
@@ -74,7 +74,7 @@ export function UserRoutesInit(app: FastifyInstance) {
 		reply.send(userToChange);
 	});
 
-	// DELETE
+	// Route that deletes a user
 	app.delete<{ Body: { myId: number; IdToDelete: number } }>("/users", async (req, reply) => {
 		const { myId, IdToDelete } = req.body;
 
@@ -103,6 +103,7 @@ export function UserRoutesInit(app: FastifyInstance) {
 		}
 	});
 
+	// Routes that create a new user profile
 	app.post<{ Body: ICreateUsersBody }>("/users", async (req, reply) => {
 		try {
 			const data = await req.file();
@@ -130,6 +131,7 @@ export function UserRoutesInit(app: FastifyInstance) {
 		}
 	});
 
+	//Route that gets a random user
 	app.get("/profile", async (req, reply) => {
 		const userRepo = req.em.getRepository(User);
 		const totalCount = await userRepo.count();

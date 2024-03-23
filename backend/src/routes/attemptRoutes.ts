@@ -10,7 +10,7 @@ import { ICreateAttemptBody, IUpdateAttemptBody, ResultBody } from "../types";
  * @constructor
  */
 export function AttemptRouteInit(app: FastifyInstance) {
-	// Route that returns all users who ARE NOT SOFT DELETED
+	// Route that returns all attemps from all climbers
 	app.get("/attempts", async (req, reply) => {
 		try {
 			const allAttempts = await req.em.find(Attempt, {});
@@ -20,7 +20,7 @@ export function AttemptRouteInit(app: FastifyInstance) {
 		}
 	});
 
-	// Fastify route handler
+	// Route that returns climber ranking by calculating each climber's score based on their attempts
 	app.get("/ranking", async (req, reply) => {
 		try {
 
@@ -31,8 +31,8 @@ export function AttemptRouteInit(app: FastifyInstance) {
 
 			// Iterate over each Attempt object in the array, sort the attempt based on climber ID
 			successfulAttempts.forEach(attempt => {
-				const climberId = attempt.climber.id; // Assuming climber ID is accessible like this
-				const boulderId = attempt.boulder.id; // Assuming boulder ID is accessible like this
+				const climberId = attempt.climber.id;
+				const boulderId = attempt.boulder.id;
 
 				// If the climber does not have an entry in the bouldersByClimber object, initialize it as an empty array
 				if (!bouldersByClimber[climberId]) {
@@ -136,7 +136,6 @@ export function AttemptRouteInit(app: FastifyInstance) {
 			await req.em.create(Attempt, newAttempt);
 		}
 
-		// Reminder -- this is how we persist our JS object changes to the database itself
 		await req.em.flush();
 		reply.send(attemptToChange ? attemptToChange : newAttempt);
 	});

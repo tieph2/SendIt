@@ -11,6 +11,8 @@ import { ICreateBoulderBody, IUpdateBoulderBody } from "../types.js";
  * @constructor
  */
 export function BoulderRoutesInit(app: FastifyInstance) {
+
+	// Route that gets all boulders in the database
 	app.get("/boulders", async (req, reply) => {
 		try {
 			const theBoulder = await req.em.find(Boulder, {});
@@ -20,6 +22,7 @@ export function BoulderRoutesInit(app: FastifyInstance) {
 		}
 	});
 
+	// Route that creates a boulder in the database
 	app.post<{ Body: ICreateBoulderBody }>("/boulders", async (req, reply) => {
 		try {
 			const data = await req.file();
@@ -47,7 +50,7 @@ export function BoulderRoutesInit(app: FastifyInstance) {
 		}
 	});
 
-	// Search for a boulder problem given boulder id
+	// Route that searches for a boulder problem given boulder id
 	app.search<{ Body: { boulderId: number } }>("/boulders", async (req, reply) => {
 		const { boulderId: boulderId } = req.body;
 
@@ -59,7 +62,7 @@ export function BoulderRoutesInit(app: FastifyInstance) {
 		}
 	});
 
-	//Update a boulder problem given boulder id
+	// Route that updates a boulder problem given boulder id
 	app.put<{ Body: IUpdateBoulderBody }>("/boulders", async (req, reply) => {
 		const { id, zone, color, score, grade, note } = req.body;
 
@@ -77,18 +80,18 @@ export function BoulderRoutesInit(app: FastifyInstance) {
 		}
 	});
 
-	// Delete a boulder problem after checking user is a judge
+	// Route that deletes a boulder problem after checking role
 	app.delete<{ Body: { myId: number; bouderId: number } }>(
 		"/boulders",
 		async (req, reply) => {
 			const { myId, bouderId  } = req.body;
 
 			try {
-				// Authenticate my user's role
-				const me = await req.em.findOneOrFail(User, myId, { strict: true });
+				// Authenticate user's role
+				const user = await req.em.findOneOrFail(User, myId, { strict: true });
 
 				// Make sure the requester is an Admin
-				if (me.role !== UserRole.JUDGE) {
+				if (user.role !== UserRole.JUDGE) {
 					return reply.status(401).send({ message: "You are not an judge!" });
 				}
 

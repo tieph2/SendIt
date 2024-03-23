@@ -10,7 +10,7 @@ import { Registration } from "../db/entities/Registration.js";
  * @constructor
  */
 export function RegistrationRouteInit(app: FastifyInstance) {
-	// Route that returns all users who ARE NOT SOFT DELETED
+	// Route that returns all boulder registrations
 	app.get("/registration", async (req, reply) => {
 		try {
 			const allRegistrations = await req.em.find(Registration, {});
@@ -20,6 +20,7 @@ export function RegistrationRouteInit(app: FastifyInstance) {
 		}
 	});
 
+	// Route that gets all registrations of a specific boulder
 	app.search("/registration", async (req, reply) => {
 		const { boulder } = req.body;
 		try {
@@ -38,7 +39,7 @@ export function RegistrationRouteInit(app: FastifyInstance) {
 		}
 	});
 
-	//Create a registration between a climber and a boulder
+	// Route that creates a registration between a climber and a boulder
 	app.post<{ Body: RegistrationBody }>("/registration", async (req, reply) => {
 		const { climberId, boulderId } = req.body;
 
@@ -64,7 +65,7 @@ export function RegistrationRouteInit(app: FastifyInstance) {
 		}
 	});
 
-	//Delete registration
+	//Route that deletes a registration
 	app.delete<{ Body: RegistrationBody }>("/registration", async (req, reply) => {
 		const { climberId, boulderId } = req.body;
 		console.log("Deleting");
@@ -81,7 +82,7 @@ export function RegistrationRouteInit(app: FastifyInstance) {
 		}
 	});
 
-	// Fastify route handler
+	// Route that gets the next climber and their chosen boulder in a zone
 	app.search("/registration/top", async (req, reply) => {
 		const { zone } = req.body;
 
